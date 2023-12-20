@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6956093630696506714}
   - component: {fileID: 6956093630696506715}
   - component: {fileID: 6956093630696506708}
+  - component: {fileID: 5707527571774274843}
+  - component: {fileID: -7725038759381183760}
   m_Layer: 0
   m_Name: AsteroidBig
   m_TagString: Untagged
@@ -140,3 +142,28 @@ PolygonCollider2D:
       - {x: 0.58886725, y: 0.28957015}
       - {x: 0.0784761, y: 0.4816407}
       - {x: -0.40019596, y: 0.4037498}
+--- !u!114 &5707527571774274843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956093630696506709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8519c70f94d7da24c8e0b73a1492f4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destroy: {fileID: 8300000, guid: f2ce2449b084375438cc51a7de3a32d5, type: 3}
+--- !u!114 &-7725038759381183760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956093630696506709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba7cd0641494f074dbfef7f8c2586b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

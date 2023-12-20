@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4512116554737227381
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5046885428062841385}
+  m_Layer: 0
+  m_Name: GunSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5046885428062841385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512116554737227381}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.375, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5786548258735207119}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5786548258735207115
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,6 +43,8 @@ GameObject:
   - component: {fileID: 5786548258735207112}
   - component: {fileID: 5786548258735207113}
   - component: {fileID: 5786548258735207114}
+  - component: {fileID: 1521449810522018599}
+  - component: {fileID: 3080067592678692211}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -30,7 +63,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5046885428062841385}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -142,3 +176,31 @@ PolygonCollider2D:
       - {x: 0.48999998, y: -0.30074215}
       - {x: 0.4953904, y: -0.21273445}
       - {x: 0.10148443, y: 0.24195321}
+--- !u!114 &1521449810522018599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5786548258735207115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771b5913c45d4634ab95f37d4b580ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crash: {fileID: 8300000, guid: 2de03051035eed04ea5289418c95e40a, type: 3}
+  shoot: {fileID: 8300000, guid: 28f19ac51dc8d9042b96941b3fb10d81, type: 3}
+  bullet: {fileID: 4464418945582196199, guid: afba1620e1dc900438ae6e7da66e293f, type: 3}
+  GunSystem: {fileID: 5046885428062841385}
+--- !u!114 &3080067592678692211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5786548258735207115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba7cd0641494f074dbfef7f8c2586b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
