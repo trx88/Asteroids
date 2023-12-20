@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -5,12 +6,15 @@ public class AsteroidController
 {
     private readonly IHandlerService _handlerService;
     private readonly IAsteroidSpawnerService _asteroidSpawnerService;
+    private readonly IRepository<HiScoreData> _hiScoreDataRepository;
 
     private AsteroidController(
+        PlayerPrefsRepositoryFactory playerPrefsRepositoryFactory,
         IHandlerService handlerService,
         IAsteroidSpawnerService asteroidSpawnerService,
         SignalBus signalBus)
     {
+        _hiScoreDataRepository = playerPrefsRepositoryFactory.RepositoryOf<HiScoreData>();
         _handlerService = handlerService;
         _asteroidSpawnerService = asteroidSpawnerService;
         signalBus.Subscribe<AsteroidCollisionSignal>(x => AsteroidCollision(x.Asteroid, x.Other));
@@ -31,6 +35,11 @@ public class AsteroidController
         if (asteroid != null)
         {
             _handlerService.Handle(asteroid);
+
+            var hiScore = _hiScoreDataRepository.Get(x => true).Single();
+            hiScore.HiScore++;
+            _hiScoreDataRepository.Update(hiScore);
+            var hiScoreUpdated = _hiScoreDataRepository.Get(x => true).Single();
 
             GameObject.Destroy(other.gameObject);
         }

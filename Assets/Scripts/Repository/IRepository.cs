@@ -1,7 +1,8 @@
+using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public interface IItem
@@ -13,13 +14,13 @@ public abstract class Item : IItem
 {
     public Item() => Type = GetType().Name;
 
-    public string Id { get; set; } = System.Guid.NewGuid().ToString();
-    public string Type { get; set; }
+    [JsonProperty("id")] public string Id { get; set; } = System.Guid.NewGuid().ToString();
+    [JsonProperty("type")] public string Type { get; set; }
 }
 
 public abstract class UserData : Item
 {
-    public string UserId { get; set; }
+    [JsonProperty("userId")] public string UserId { get; set; }
 }
 
 public interface IMemoryItem : IItem
@@ -29,7 +30,7 @@ public interface IMemoryItem : IItem
 
 public interface IPlayerPrefsItem : IItem
 {
-    public string PlayerPrefsKey { get; }
+    [JsonIgnore] public string PlayerPrefsKey { get; }
 }
 
 public interface IRepository<TItem> where TItem : class, IItem
@@ -43,16 +44,25 @@ public interface IRepository<TItem> where TItem : class, IItem
     void Delete(TItem value);
     bool Exists(string id);
     TItem Get(string id);
-    void Updated(TItem value);
+    IEnumerable<TItem> Get(Func<TItem, bool> predicate);
+    void Update(TItem value);
 }
 
 public abstract class Repository<TItem> : IRepository<TItem> where TItem : class, IItem
 {
     protected ConcurrentDictionary<string, TItem> _items;
 
+    protected InitializeAction InitializeAction { get; private set; }
     public Action<TItem> ItemAdded { get; set; }
     public Action<TItem> ItemChanged { get; set; }
     public Action<TItem> ItemRemoved { get; set; }
+
+    protected Repository(InitializeAction initializeAction)
+    {
+        InitializeAction = initializeAction;
+    }
+
+    protected abstract void LoadOrInitializeRepozitory();
 
     public int Count()
     {
@@ -87,7 +97,7 @@ public abstract class Repository<TItem> : IRepository<TItem> where TItem : class
     {
         if(_items == null)
         {
-            //load
+            LoadOrInitializeRepozitory();
         }
 
         if(_items.TryRemove(value.Id, out TItem removedItem))
@@ -116,7 +126,7 @@ public abstract class Repository<TItem> : IRepository<TItem> where TItem : class
     {
         if (_items == null)
         {
-            //load
+            LoadOrInitializeRepozitory();
         }
 
         if (_items.TryGetValue(id, out TItem item))
@@ -130,11 +140,21 @@ public abstract class Repository<TItem> : IRepository<TItem> where TItem : class
         }
     }
 
-    public virtual void Updated(TItem value)
+    public IEnumerable<TItem> Get(Func<TItem, bool> predicate)
     {
         if (_items == null)
         {
-            //load
+            LoadOrInitializeRepozitory();
+        }
+
+        return _items.Values.Where(predicate).ToList();
+    }
+
+    public virtual void Update(TItem value)
+    {
+        if (_items == null)
+        {
+            LoadOrInitializeRepozitory();
         }
 
         if (_items.TryGetValue(value.Id, out TItem item))
@@ -151,9 +171,16 @@ public abstract class Repository<TItem> : IRepository<TItem> where TItem : class
 
 public class PlayerPrefsRepository<TItem> : Repository<TItem> where TItem : class, IItem, new()
 {
+    public PlayerPrefsRepository(InitializeAction initializeAction) : base(initializeAction)
+    {
+
+    }
+
     private void Save()
     {
-        //PlayerPrefs.SetString((new TItem() as IPlayerPrefsItem).PlayerPrefsKey, JsonConvert
+        PlayerPrefs.SetString(
+            (new TItem() as IPlayerPrefsItem).PlayerPrefsKey,
+            JsonConvert.SerializeObject(_items));
         PlayerPrefs.Save();
     }
 
@@ -164,4 +191,35 @@ public class PlayerPrefsRepository<TItem> : Repository<TItem> where TItem : clas
 
         return result;
     }
+
+    public override void Delete(TItem value)
+    {
+        base.Create(value);
+        Save();
+    }
+
+    public override void Update(TItem value)
+    {
+        base.Create(value);
+        Save();
+    }
+
+    protected override void LoadOrInitializeRepozitory()
+    {
+        string playerPrefsEntry = PlayerPrefs.GetString((new TItem() as IPlayerPrefsItem).PlayerPrefsKey, null);
+        if(string.IsNullOrEmpty(playerPrefsEntry))
+        {
+            InitializeAction.Invoke();
+        }
+        else
+        {
+            _items = JsonConvert.DeserializeObject<ConcurrentDictionary<string, TItem>>(playerPrefsEntry);
+        }
+    }
+}
+
+public class HiScoreData : Item, IPlayerPrefsItem
+{
+    public string PlayerPrefsKey => "HiScoreData";
+    [JsonProperty("hiScore")] public int HiScore { get; set; }
 }
