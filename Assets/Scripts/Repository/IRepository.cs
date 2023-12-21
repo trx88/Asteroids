@@ -18,11 +18,6 @@ public abstract class Item : IItem
     [JsonProperty("type")] public string Type { get; set; }
 }
 
-public abstract class UserData : Item
-{
-    [JsonProperty("userId")] public string UserId { get; set; }
-}
-
 public interface IMemoryItem : IItem
 {
 

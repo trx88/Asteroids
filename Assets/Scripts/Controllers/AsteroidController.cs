@@ -1,10 +1,11 @@
+using RovioAsteroids.Services.Abstraction;
+using RovioAsteroids.Signals;
 using UnityEngine;
 using Zenject;
 
 public class AsteroidController
 {
     private readonly IHandlerService _handlerService;
-    private readonly IAsteroidSpawnerService _asteroidSpawnerService;
 
     private AsteroidController(
         IHandlerService handlerService,
@@ -12,7 +13,6 @@ public class AsteroidController
         SignalBus signalBus)
     {
         _handlerService = handlerService;
-        _asteroidSpawnerService = asteroidSpawnerService;
         signalBus.Subscribe<AsteroidCollisionSignal>(x => AsteroidCollision(x.Asteroid, x.Other));
     }
 

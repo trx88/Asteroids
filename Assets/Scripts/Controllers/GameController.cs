@@ -1,5 +1,5 @@
+using RovioAsteroids.Services.Abstraction;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour
     private void OnAsteroidRemoved(AsteroidData asteroidData)
     {
         //New wave
-        if(_asteroidDataRepository.Count() == 0 && _gameSessionData.Lives > 0)
+        if (_asteroidDataRepository.Count() == 0 && _gameSessionData.Lives > 0)
         {
             _gameSessionData.Wave++;
             _gameSessionDataRepository.Update(_gameSessionData);

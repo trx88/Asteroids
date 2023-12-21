@@ -1,44 +1,41 @@
 using UnityEngine;
+using Zenject;
 
-public class OutOfBoundsRespawner : MonoBehaviour
+namespace RovioAsteroids.Utils
 {
-    private float _topBoundry;
-    private float _bottomBoundry;
-    private float _leftBoundry;
-    private float _rightBoundry;
-
-    // Start is called before the first frame update
-    void Start()
+    public class OutOfBoundsRespawner : MonoBehaviour
     {
-        _topBoundry = Camera.main.orthographicSize;
-        _bottomBoundry = -Camera.main.orthographicSize;
-        _leftBoundry = -Camera.main.orthographicSize * Camera.main.aspect;
-        _rightBoundry = Camera.main.orthographicSize * Camera.main.aspect;
-    }
+        private MapHelper _mapHelper;
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Teleport the game object
-        if (transform.position.x > _rightBoundry)
+        [Inject]
+        private void Construct(MapHelper mapHelper)
         {
-            transform.position = new Vector3(_leftBoundry, transform.position.y, 0);
+            _mapHelper = mapHelper;
         }
-        else if (transform.position.x < _leftBoundry)
+
+        // Update is called once per frame
+        void Update()
         {
-            transform.position = new Vector3(_rightBoundry, transform.position.y, 0);
-        }
-        else if (transform.position.y > _topBoundry)
-        {
-            transform.position = new Vector3(transform.position.x, _bottomBoundry, 0);
-        }
-        else if (transform.position.y < _bottomBoundry)
-        {
-            transform.position = new Vector3(transform.position.x, _topBoundry, 0);
-        }
-        else
-        {
-            return;
+            if (transform.position.x > _mapHelper.Right)
+            {
+                transform.position = new Vector3(_mapHelper.Left, transform.position.y, 0);
+            }
+            else if (transform.position.x < _mapHelper.Left)
+            {
+                transform.position = new Vector3(_mapHelper.Right, transform.position.y, 0);
+            }
+            else if (transform.position.y > _mapHelper.Top)
+            {
+                transform.position = new Vector3(transform.position.x, _mapHelper.Bottom, 0);
+            }
+            else if (transform.position.y < _mapHelper.Bottom)
+            {
+                transform.position = new Vector3(transform.position.x, _mapHelper.Top, 0);
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

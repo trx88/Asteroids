@@ -4,14 +4,14 @@ using Zenject;
 
 public class ShipController : MonoBehaviour
 {
-    float rotationSpeed = 100.0f;
-    float thrustForce = 3f;
+    [SerializeField] float rotationSpeed = 100.0f;
+    [SerializeField] float thrustForce = 3f;
 
-    public AudioClip crash;
-    public AudioClip shoot;
+    [SerializeField] public AudioClip crash = default;
+    [SerializeField] public AudioClip shoot = default;
 
-    public GameObject bullet;
-    public Transform GunSystem;
+    [SerializeField] public GameObject bullet = default;
+    [SerializeField] public Transform GunSystem = default;
 
     private IRepository<GameSessionData> _gameSessionDataRepository;
 
@@ -28,11 +28,11 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Rotate the ship if necessary
+        //Rotate ship
         transform.Rotate(0, 0, -Input.GetAxis("Horizontal") *
             rotationSpeed * Time.deltaTime);
 
-        // Thrust the ship if necessary
+        //Thrust ship
         GetComponent<Rigidbody2D>().
             AddForce(transform.up * thrustForce *
                 Input.GetAxis("Vertical"));
@@ -40,7 +40,7 @@ public class ShipController : MonoBehaviour
 
     private void Update()
     {
-        // Has a bullet been fired
+        //Moved to regular Update since shooting requires more frequent calls.
         if (Input.GetMouseButtonDown(0))
         {
             //ShootBullet();
@@ -56,13 +56,12 @@ public class ShipController : MonoBehaviour
             AudioSource.PlayClipAtPoint
                 (crash, Camera.main.transform.position);
 
-            // Move the ship to the center of the screen
+            //Reset ship
             transform.position = new Vector3(0, 0, 0);
-
-            // Remove all velocity from the ship
             GetComponent<Rigidbody2D>().
                 velocity = new Vector3(0, 0, 0);
 
+            //Reduce lives
             GameSessionData gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
             gameSessionData.Lives--;
             _gameSessionDataRepository.Update(gameSessionData);

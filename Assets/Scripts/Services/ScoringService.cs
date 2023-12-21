@@ -1,18 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using RovioAsteroids.Services.Abstraction;
+using System.Linq;
 
-public class ScoringServic : MonoBehaviour
+namespace RovioAsteroids.Services
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ScoringService : IScoringService
     {
-        
-    }
+        private IRepository<HiScoreData> _highScoreDataRepository;
+        private IRepository<GameSessionData> _gameSessionDataRepository;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private ScoringService(
+            InMemoryRepositoryFactory inMemoryRepositoryFactory,
+            PlayerPrefsRepositoryFactory playerPrefsRepositoryFactory)
+        {
+            _gameSessionDataRepository = inMemoryRepositoryFactory.RepositoryOf<GameSessionData>();
+            _highScoreDataRepository = playerPrefsRepositoryFactory.RepositoryOf<HiScoreData>();
+        }
+
+        public void UpdateScore(Asteroid asteroid)
+        {
+            GameSessionData gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
+            HiScoreData hiScoreData = _highScoreDataRepository.Get(x => true).Single();
+            gameSessionData.Score += asteroid.ScorePoints;
+
+            if (gameSessionData.Score > hiScoreData.HiScore)
+            {
+                hiScoreData.HiScore = gameSessionData.Score;
+            }
+
+            _gameSessionDataRepository.Update(gameSessionData);
+            _highScoreDataRepository.Update(hiScoreData);
+        }
     }
 }

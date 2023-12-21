@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class AsteroidCollisionSignal
+namespace RovioAsteroids.Signals
 {
-    private Asteroid _asteroid;
-    private GameObject _other;
-
-    public AsteroidCollisionSignal(Asteroid asteroid, GameObject other)
+    public class AsteroidCollisionSignal
     {
-        Asteroid = asteroid;
-        Other = other;
-    }
+        private Asteroid _asteroid;
+        private GameObject _other;
 
-    public Asteroid Asteroid { get => _asteroid; private set => _asteroid = value; }
-    public GameObject Other { get => _other; private set => _other = value; }
+        public AsteroidCollisionSignal(Asteroid asteroid, GameObject other)
+        {
+            Asteroid = asteroid;
+            Other = other;
+        }
+
+        public Asteroid Asteroid { get => _asteroid; private set => _asteroid = value; }
+        public GameObject Other { get => _other; private set => _other = value; }
+    }
 }

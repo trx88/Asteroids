@@ -1,3 +1,5 @@
+using RovioAsteroids.Services.Abstraction;
+
 public interface IHandler<T>
 {
     void SetSuccessor(IHandler<T> successor);
