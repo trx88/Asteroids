@@ -2,6 +2,7 @@ using RovioAsteroids.MonoBehaviors;
 using RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.Abstraction;
+using RovioAsteroids.Repository.Repositories.RepositoryFactories;
 using RovioAsteroids.Services.Abstraction;
 using RovioAsteroids.Utils;
 using System.Collections.Generic;

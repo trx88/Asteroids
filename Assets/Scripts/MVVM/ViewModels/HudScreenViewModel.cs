@@ -1,6 +1,7 @@
 ﻿using RovioAsteroids.MVVM.Bindables;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.Abstraction;
+using RovioAsteroids.Repository.Repositories.RepositoryFactories;
 using System.Linq;
 
 namespace RovioAsteroids.MVVM.ViewModels

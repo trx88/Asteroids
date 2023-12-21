@@ -4,6 +4,7 @@ using RovioAsteroids.MonoBehaviors.GameObjectFactory;
 using RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction;
 using RovioAsteroids.MVVM.ViewModels;
 using RovioAsteroids.Repository.Items.DataModels;
+using RovioAsteroids.Repository.Repositories.RepositoryFactories;
 using RovioAsteroids.Services;
 using RovioAsteroids.Signals;
 using RovioAsteroids.Utils;

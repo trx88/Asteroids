@@ -1,5 +1,6 @@
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.Abstraction;
+using RovioAsteroids.Repository.Repositories.RepositoryFactories;
 using RovioAsteroids.Services.Abstraction;
 using System.Linq;
 using UnityEngine;
@@ -25,27 +26,6 @@ namespace RovioAsteroids.Controllers
             _gameSessionDataRepository = inMemoryRepositoryFactory.RepositoryOf<GameSessionData>();
             _asteroidDataRepository = inMemoryRepositoryFactory.RepositoryOf<AsteroidData>();
             _asteroidSpawnerService = asteroidSpawnerService;
-        }
-
-        private void OnAsteroidRemoved(AsteroidData asteroidData)
-        {
-            //New wave
-            if (_asteroidDataRepository.Count() == 0 && _gameSessionData.Lives > 0)
-            {
-                _gameSessionData.Wave++;
-                _gameSessionDataRepository.Update(_gameSessionData);
-                _asteroidSpawnerService.SpawnAtStart(defaultSpawnNumber, spawnMultiplier: _gameSessionData.Wave);
-            }
-        }
-
-        private void OnGameSessionDataChanged(GameSessionData gameSessionData)
-        {
-            _gameSessionData = gameSessionData;
-            //Death
-            if (gameSessionData.Lives == 0)
-            {
-                BeginGame();
-            }
         }
 
         private void Awake()
@@ -85,6 +65,27 @@ namespace RovioAsteroids.Controllers
             _gameSessionData.Score = 0;
             _gameSessionData.Wave = 1;
             _gameSessionDataRepository.Update(_gameSessionData);
+        }
+
+        private void OnAsteroidRemoved(AsteroidData asteroidData)
+        {
+            //New wave
+            if (_asteroidDataRepository.Count() == 0 && _gameSessionData.Lives > 0)
+            {
+                _gameSessionData.Wave++;
+                _gameSessionDataRepository.Update(_gameSessionData);
+                _asteroidSpawnerService.SpawnAtStart(defaultSpawnNumber, spawnMultiplier: _gameSessionData.Wave);
+            }
+        }
+
+        private void OnGameSessionDataChanged(GameSessionData gameSessionData)
+        {
+            _gameSessionData = gameSessionData;
+            //Death
+            if (gameSessionData.Lives == 0)
+            {
+                BeginGame();
+            }
         }
     }
 }

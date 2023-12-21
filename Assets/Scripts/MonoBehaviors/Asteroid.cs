@@ -35,19 +35,17 @@ namespace RovioAsteroids.MonoBehaviors
 
         protected void Init()
         {
-            // Push the asteroid in the direction it is facing
+            //Push and spin the asteroid
             GetComponent<Rigidbody2D>()
                 .AddForce(transform.up * Random.Range(-50.0f, 150.0f));
-
-            // Give a random angular velocity/rotation
             GetComponent<Rigidbody2D>()
                 .angularVelocity = Random.Range(-0.0f, 90.0f);
         }
 
         void OnTriggerEnter2D(Collider2D other)
         {
+            //TODO: Check for type
             if (other.gameObject.tag.Equals("Laser"))
-            //if (other.gameObject.GetComponent<BulletController>() != null)
             {
                 _signalBus.Fire(new AsteroidCollisionSignal(this, other.gameObject));
             }

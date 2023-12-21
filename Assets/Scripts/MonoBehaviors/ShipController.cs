@@ -1,6 +1,7 @@
 using RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.Abstraction;
+using RovioAsteroids.Repository.Repositories.RepositoryFactories;
 using System.Linq;
 using UnityEngine;
 using Zenject;
@@ -26,11 +27,6 @@ namespace RovioAsteroids.MonoBehaviors
         {
             _gameSessionDataRepository = inMemoryRepositoryFactory.RepositoryOf<GameSessionData>();
             _laserFactory = laserFactory;
-        }
-
-        void Start()
-        {
-
         }
 
         void FixedUpdate()
