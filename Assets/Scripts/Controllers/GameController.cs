@@ -12,11 +12,6 @@ public class GameController : MonoBehaviour
     private int wave;
     private int defaultSpawnNumber = 4;
 
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI livesText;
-    public TextMeshProUGUI waveText;
-    public TextMeshProUGUI hiscoreText;
-
     private IAsteroidSpawnerService _asteroidSpawnerService;
     private IRepository<GameSessionData> _gameSessionDataRepository;
     private IRepository<AsteroidData> _asteroidDataRepository;
