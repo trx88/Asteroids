@@ -53,7 +53,7 @@ namespace RovioAsteroids.MonoBehaviors
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            // Anything except a bullet is an asteroid
+            //TODO: Check for type
             if (other.gameObject.tag != "Laser")
             {
                 AudioSource.PlayClipAtPoint
