@@ -3,28 +3,30 @@ using RovioAsteroids.Signals;
 using UnityEngine;
 using Zenject;
 
-public class AsteroidController
+namespace RovioAsteroids.Controllers
 {
-    private readonly IHandlerService _handlerService;
-
-    private AsteroidController(
-        IHandlerService handlerService,
-        IAsteroidSpawnerService asteroidSpawnerService,
-        SignalBus signalBus)
+    public class AsteroidController
     {
-        _handlerService = handlerService;
-        signalBus.Subscribe<AsteroidCollisionSignal>(x => AsteroidCollision(x.Asteroid, x.Other));
-    }
+        private readonly IHandlerService _handlerService;
 
-    private void AsteroidCollision(Asteroid asteroid, GameObject other)
-    {
-        if (asteroid != null)
+        private AsteroidController(
+            IHandlerService handlerService,
+            SignalBus signalBus)
         {
-            //Handle any type of Asteroid (spawn/destroy or just destroy, update score).
-            _handlerService.Handle(asteroid);
+            _handlerService = handlerService;
+            signalBus.Subscribe<AsteroidCollisionSignal>(x => AsteroidCollision(x.Asteroid, x.Other));
+        }
 
-            //Destroy laser that collided with the asteroid.
-            GameObject.Destroy(other.gameObject);
+        private void AsteroidCollision(Asteroid asteroid, GameObject other)
+        {
+            if (asteroid != null)
+            {
+                //Handle any type of Asteroid (spawn/destroy or just destroy, update score).
+                _handlerService.Handle(asteroid);
+
+                //Destroy laser that collided with the asteroid.
+                GameObject.Destroy(other.gameObject);
+            }
         }
     }
 }

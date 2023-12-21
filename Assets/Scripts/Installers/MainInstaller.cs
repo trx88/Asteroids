@@ -1,3 +1,5 @@
+using RovioAsteroids.Controllers;
+using RovioAsteroids.MVVM.ViewModels;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Services;
 using RovioAsteroids.Signals;
