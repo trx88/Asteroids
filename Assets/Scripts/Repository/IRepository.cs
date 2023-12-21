@@ -169,6 +169,26 @@ public abstract class Repository<TItem> : IRepository<TItem> where TItem : class
     }
 }
 
+public class InMemoryRepository<TItem> : Repository<TItem> where TItem : class, IItem
+{
+    public InMemoryRepository(InitializeAction initializeAction) : base(initializeAction)
+    {
+
+    }
+
+    protected override void LoadOrInitializeRepozitory()
+    {
+        if(InitializeAction != null)
+        {
+            InitializeAction.Invoke();
+        }
+        else
+        {
+            _items = new ConcurrentDictionary<string, TItem>();
+        }
+    }
+}
+
 public class PlayerPrefsRepository<TItem> : Repository<TItem> where TItem : class, IItem, new()
 {
     public PlayerPrefsRepository(InitializeAction initializeAction) : base(initializeAction)
@@ -222,4 +242,11 @@ public class HiScoreData : Item, IPlayerPrefsItem
 {
     public string PlayerPrefsKey => "HiScoreData";
     [JsonProperty("hiScore")] public int HiScore { get; set; }
+}
+
+public class GameSessionData : Item, IMemoryItem
+{
+    [JsonProperty("score")] public int Score { get; set; }
+    [JsonProperty("wave")] public int Wave { get; set; }
+    [JsonProperty("lives")] public int Lives { get; set; }
 }

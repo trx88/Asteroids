@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,13 @@ public class ShipController : MonoBehaviour
     public Transform GunSystem;
 
     private GameController gameController;
+    private IRepository<GameSessionData> _gameSessionDataRepository;
+
+    [Inject]
+    private void Construct(InMemoryRepositoryFactory inMemoryRepositoryFactory)
+    {
+        _gameSessionDataRepository = inMemoryRepositoryFactory.RepositoryOf<GameSessionData>();
+    }
 
     void Start()
     {
@@ -95,6 +103,10 @@ public class ShipController : MonoBehaviour
 
         // Play a shoot sound
         AudioSource.PlayClipAtPoint(shoot, Camera.main.transform.position);
+
+        var gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
+        gameSessionData.Score++;
+        _gameSessionDataRepository.Update(gameSessionData);
     }
 
     Quaternion ModifyQuaternionWithEuler(Quaternion rotation, Vector3 euler)

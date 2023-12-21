@@ -13,6 +13,7 @@ public class MainInstaller : MonoInstaller
         InstallFactories();
 
         InstallRepositoryFactories();
+        ConfigureInMemoryRepositories();
         ConfigurePlayerPrefsRepositories();
     }
 
@@ -40,7 +41,18 @@ public class MainInstaller : MonoInstaller
 
     private void InstallRepositoryFactories()
     {
+        Container.BindInterfacesAndSelfTo<InMemoryRepositoryFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<PlayerPrefsRepositoryFactory>().AsSingle();
+    }
+
+    private void ConfigureInMemoryRepositories()
+    {
+        var inMemoryRepoFactory = Container.Resolve<InMemoryRepositoryFactory>();
+
+        inMemoryRepoFactory.AddRepositoryConfig(
+            new RepositoryConfig(typeof(GameSessionData),
+            new InitializeGameSessionDataAction(inMemoryRepoFactory)
+            ));
     }
 
     private void ConfigurePlayerPrefsRepositories()
