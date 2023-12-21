@@ -43,7 +43,7 @@ namespace RovioAsteroids.Repository.Repositories
             {
                 if (!_items.TryAdd(value.Id, value))
                 {
-                    throw new ArgumentException($"Trying to create {typeof(TItem)} while the item with same Id: {id} already exists in repository!");
+                    throw new ArgumentException($"Trying to create {typeof(TItem)} while the item with same Id: {value.Id} already exists in repository!");
                 }
 
                 ItemAdded?.Invoke(result);
@@ -122,7 +122,7 @@ namespace RovioAsteroids.Repository.Repositories
             }
             else
             {
-                throw new KeyNotFoundException($"{typeof(TItem)} with Id: {id} not found in repository!");
+                throw new KeyNotFoundException($"{typeof(TItem)} with Id: {value.Id} not found in repository!");
             }
         }
     }
