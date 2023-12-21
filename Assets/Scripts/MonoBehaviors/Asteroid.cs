@@ -47,7 +47,6 @@ public abstract class Asteroid : MonoBehaviour, IAsteroid
         //if (other.gameObject.GetComponent<BulletController>() != null)
         {
             _signalBus.Fire(new AsteroidCollisionSignal(this, other.gameObject));
-            //TODO: Send signal to ScoreService to increase score
         }
     }
 

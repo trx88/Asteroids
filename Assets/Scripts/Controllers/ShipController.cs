@@ -13,7 +13,6 @@ public class ShipController : MonoBehaviour
     public GameObject bullet;
     public Transform GunSystem;
 
-    private GameController gameController;
     private IRepository<GameSessionData> _gameSessionDataRepository;
 
     [Inject]
@@ -24,12 +23,7 @@ public class ShipController : MonoBehaviour
 
     void Start()
     {
-        // Get a reference to the game controller object and the script
-        GameObject gameControllerObject =
-            GameObject.FindWithTag("GameController");
-
-        gameController =
-            gameControllerObject.GetComponent<GameController>();
+        
     }
 
     void FixedUpdate()
@@ -69,7 +63,9 @@ public class ShipController : MonoBehaviour
             GetComponent<Rigidbody2D>().
                 velocity = new Vector3(0, 0, 0);
 
-            gameController.DecrementLives();
+            GameSessionData gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
+            gameSessionData.Lives--;
+            _gameSessionDataRepository.Update(gameSessionData);
         }
     }
 

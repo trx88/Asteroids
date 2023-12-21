@@ -33,9 +33,8 @@ public class AsteroidSpawnerService : IAsteroidSpawnerService
         {
             GameObject.Destroy(_asteroids[i].gameObject);
             _asteroidDataRepository.Delete(_asteroids[i].UniqueId.ToString());
-
-            _asteroids.RemoveAt(i);
         }
+        _asteroids.Clear();
     }
 
     public void DestroyAsteroid(Asteroid asteroid)

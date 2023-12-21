@@ -1,5 +1,3 @@
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 public class MainInstaller : MonoInstaller
@@ -7,11 +5,13 @@ public class MainInstaller : MonoInstaller
     public override void InstallBindings()
     {
         InstallRepositoryFactories();
-
-        InstallControllers();
-        InstallServices();
         InstallSignals();
         InstallFactories();
+        InstallServices();
+        InstallControllers();
+
+        //Done here, so GameController does not inject AsteroidController.
+        Container.Resolve<AsteroidController>();
     }
 
     private void InstallControllers()

@@ -43,22 +43,3 @@ public class InitializeGameSessionDataAction : InitializeAction
             });
     }
 }
-
-public class InitializeAsteroidDataAction : InitializeAction
-{
-    private readonly InMemoryRepositoryFactory _inMemoryRepositoryFactory;
-
-    public InitializeAsteroidDataAction(InMemoryRepositoryFactory repositoryFactory)
-    {
-        _inMemoryRepositoryFactory = repositoryFactory;
-    }
-
-    public override void Invoke()
-    {
-        _inMemoryRepositoryFactory.RepositoryOf<AsteroidData>().Create(
-            new AsteroidData
-            {
-                
-            });
-    }
-}

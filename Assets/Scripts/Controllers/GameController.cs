@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -17,12 +18,49 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI hiscoreText;
 
-    private AsteroidController _asteroidController;
+    private IAsteroidSpawnerService _asteroidSpawnerService;
+    private IRepository<GameSessionData> _gameSessionDataRepository;
+    private IRepository<AsteroidData> _asteroidDataRepository;
+
+    private GameSessionData _gameSessionData;
 
     [Inject]
-    private void Construct(AsteroidController asteroidController)
+    private void Construct(
+        InMemoryRepositoryFactory inMemoryRepositoryFactory,
+        IAsteroidSpawnerService asteroidSpawnerService)
     {
-        _asteroidController = asteroidController;
+        _gameSessionDataRepository = inMemoryRepositoryFactory.RepositoryOf<GameSessionData>();
+        _asteroidDataRepository = inMemoryRepositoryFactory.RepositoryOf<AsteroidData>();
+        _asteroidSpawnerService = asteroidSpawnerService;
+    }
+
+    private void OnAsteroidRemoved(AsteroidData asteroidData)
+    {
+        //New wave
+        if(_asteroidDataRepository.Count() == 0 && _gameSessionData.Lives > 0)
+        {
+            _asteroidSpawnerService.SpawnAtStart();
+        }
+    }
+
+    private void OnGameSessionDataChanged(GameSessionData gameSessionData)
+    {
+        if(gameSessionData.Lives == 0)
+        {
+            BeginGame();
+        }
+    }
+
+    private void Awake()
+    {
+        _asteroidDataRepository.ItemRemoved += OnAsteroidRemoved;
+        _gameSessionDataRepository.ItemChanged += OnGameSessionDataChanged;
+    }
+
+    private void OnDestroy()
+    {
+        _asteroidDataRepository.ItemRemoved -= OnAsteroidRemoved;
+        _gameSessionDataRepository.ItemChanged -= OnGameSessionDataChanged;
     }
 
     // Use this for initialization
@@ -53,67 +91,12 @@ public class GameController : MonoBehaviour
         livesText.text = "LIVES: " + lives;
         waveText.text = "WAVE: " + wave;
 
-        //SpawnAsteroids();
-        //DestroyExistingAsteroids();
-        //_asteroidController.DestroyAllAsteroids();
-        _asteroidController.SpawnAtStart();
-    }
+        _asteroidSpawnerService.SpawnAtStart();
 
-    void SpawnAsteroids()
-    {
-        DestroyExistingAsteroids();
-
-        // Decide how many asteroids to spawn
-        // If any asteroids left over from previous game, subtract them
-        asteroidsRemaining = (wave * increaseEachWave);
-
-        for (int i = 0; i < asteroidsRemaining; i++)
-        {
-            // Spawn an asteroid
-            //Instantiate(
-            //    asteroid,
-            //    new Vector3(
-            //        Random.Range(_leftBoundry, _rightBoundry),
-            //        Random.Range(_bottomBoundry, _topBoundry),
-            //        0),
-            //    Quaternion.Euler(0, 0, Random.Range(-0.0f, 359.0f)));
-            //_diContainer.InstantiatePrefab(
-            //    asteroid,
-            //    new Vector3(
-            //        Random.Range(_leftBoundry, _rightBoundry),
-            //        Random.Range(_bottomBoundry, _topBoundry),
-            //        0),
-            //    Quaternion.Euler(0, 0, Random.Range(-0.0f, 359.0f)),
-            //    null);
-        }
-
-        waveText.text = "WAVE: " + wave;
-    }
-
-    public void IncrementScore()
-    {
-        score++;
-
-        scoreText.text = "SCORE:" + score;
-
-        if (score > hiscore)
-        {
-            hiscore = score;
-            hiscoreText.text = "HISCORE: " + hiscore;
-
-            // Save the new hiscore
-            PlayerPrefs.SetInt("hiscore", hiscore);
-        }
-
-        // Has player destroyed all asteroids?
-        if (asteroidsRemaining < 1)
-        {
-
-            // Start next wave
-            wave++;
-            SpawnAsteroids();
-
-        }
+        _gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
+        _gameSessionData.Lives = 3;
+        _gameSessionData.Score = 0;
+        _gameSessionDataRepository.Update(_gameSessionData);
     }
 
     public void DecrementLives()
@@ -126,40 +109,6 @@ public class GameController : MonoBehaviour
         {
             // Restart the game
             BeginGame();
-        }
-    }
-
-    public void DecrementAsteroids()
-    {
-        asteroidsRemaining--;
-    }
-
-    public void SplitAsteroid()
-    {
-        // Two extra asteroids
-        // - big one
-        // + 3 little ones
-        // = 2
-        asteroidsRemaining += 2;
-
-    }
-
-    void DestroyExistingAsteroids()
-    {
-        GameObject[] asteroids =
-            GameObject.FindGameObjectsWithTag("AsteroidLarge");
-
-        foreach (GameObject current in asteroids)
-        {
-            GameObject.Destroy(current);
-        }
-
-        GameObject[] asteroids2 =
-            GameObject.FindGameObjectsWithTag("AsteroidSmall");
-
-        foreach (GameObject current in asteroids2)
-        {
-            GameObject.Destroy(current);
         }
     }
 }
