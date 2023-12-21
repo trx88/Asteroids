@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System;
+using RovioAsteroids.Repository.Items.Abstraction;
+using RovioAsteroids.Repository.Repositories.Abstraction;
+using RovioAsteroids.Repository.Repositories;
 
 public class RepositoryConfig
 {

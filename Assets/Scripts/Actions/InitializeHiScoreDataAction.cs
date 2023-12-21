@@ -1,3 +1,5 @@
+using RovioAsteroids.Repository.Items.DataModels;
+
 public abstract class InitializeAction
 {
     public abstract void Invoke();
