@@ -9,7 +9,7 @@ public interface IAsteroidSpawnerService
 
     void DestroyAsteroid(Asteroid asteroid);
 
-    Asteroid FindAsteroid(System.Guid uniqueId);
+    Asteroid FindAsteroid(string uniqueId);
 
     void SpawnLargeAsteroid();
 

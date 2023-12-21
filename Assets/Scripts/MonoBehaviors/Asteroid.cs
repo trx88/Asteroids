@@ -9,8 +9,8 @@ public abstract class Asteroid : MonoBehaviour, IAsteroid
 
     public int ScorePoints { get => _scorePoints; }
 
-    protected System.Guid uniqueId;
-    public System.Guid UniqueId { get => uniqueId; }
+    protected string uniqueId;
+    public string UniqueId { get => uniqueId; }
 
     private SignalBus _signalBus;
 
@@ -22,7 +22,7 @@ public abstract class Asteroid : MonoBehaviour, IAsteroid
 
     private void Awake()
     {
-        uniqueId = System.Guid.NewGuid();
+        uniqueId = System.Guid.NewGuid().ToString();
     }
 
     void OnDestroy()
