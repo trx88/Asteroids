@@ -10,9 +10,8 @@ public class GameController : MonoBehaviour
     private int asteroidsRemaining;
     private int lives;
     private int wave;
-    private int increaseEachWave = 4;
+    private int defaultSpawnNumber = 4;
 
-    public GameObject asteroid;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI waveText;
@@ -39,13 +38,17 @@ public class GameController : MonoBehaviour
         //New wave
         if(_asteroidDataRepository.Count() == 0 && _gameSessionData.Lives > 0)
         {
-            _asteroidSpawnerService.SpawnAtStart();
+            _gameSessionData.Wave++;
+            _gameSessionDataRepository.Update(_gameSessionData);
+            _asteroidSpawnerService.SpawnAtStart(defaultSpawnNumber, spawnMultiplier: _gameSessionData.Wave);
         }
     }
 
     private void OnGameSessionDataChanged(GameSessionData gameSessionData)
     {
-        if(gameSessionData.Lives == 0)
+        _gameSessionData = gameSessionData;
+        //Death
+        if (gameSessionData.Lives == 0)
         {
             BeginGame();
         }
@@ -81,34 +84,11 @@ public class GameController : MonoBehaviour
 
     void BeginGame()
     {
-        score = 0;
-        lives = 3;
-        wave = 1;
-
-        // Prepare the HUD
-        scoreText.text = "SCORE:" + score;
-        hiscoreText.text = "HISCORE: " + hiscore;
-        livesText.text = "LIVES: " + lives;
-        waveText.text = "WAVE: " + wave;
-
-        _asteroidSpawnerService.SpawnAtStart();
+        _asteroidSpawnerService.SpawnAtStart(defaultSpawnNumber);
 
         _gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
         _gameSessionData.Lives = 3;
         _gameSessionData.Score = 0;
         _gameSessionDataRepository.Update(_gameSessionData);
-    }
-
-    public void DecrementLives()
-    {
-        lives--;
-        livesText.text = "LIVES: " + lives;
-
-        // Has player run out of lives?
-        if (lives < 1)
-        {
-            // Restart the game
-            BeginGame();
-        }
     }
 }

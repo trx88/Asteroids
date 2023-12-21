@@ -3,7 +3,7 @@ using UnityEngine;
 public interface IAsteroidSpawnerService
 {
 
-    void SpawnAtStart(int numberOfAsteroidsToSpawn = 4);
+    void SpawnAtStart(int defaultNumberOfAsteroidsToSpawn, int spawnMultiplier = 1);
 
     void DestroyAllAsteroids();
 

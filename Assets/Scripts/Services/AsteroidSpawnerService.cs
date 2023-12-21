@@ -54,11 +54,11 @@ public class AsteroidSpawnerService : IAsteroidSpawnerService
         return _asteroids.Find(x => x.UniqueId == uniqueId);
     }
 
-    public void SpawnAtStart(int numberOfAsteroidsToSpawn = 4)
+    public void SpawnAtStart(int defaultNumberOfAsteroidsToSpawn, int spawnMultiplier = 1)
     {
         DestroyAllAsteroids();
 
-        for (int i = 0; i < numberOfAsteroidsToSpawn; i++)
+        for (int i = 0; i < defaultNumberOfAsteroidsToSpawn * spawnMultiplier; i++)
         {
             SpawnLargeAsteroid();
         }
