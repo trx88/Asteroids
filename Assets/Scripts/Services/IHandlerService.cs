@@ -11,10 +11,12 @@ public class AsteroidHandlerService : IHandlerService
 {
     private readonly List<IHandler<Asteroid>> _asteroidHandlers = new List<IHandler<Asteroid>>();
 
-    private AsteroidHandlerService(IAsteroidSpawnerService asteroidSpawnerService)
+    private AsteroidHandlerService(
+        IAsteroidSpawnerService asteroidSpawnerService,
+        IScoringService scoringService)
     {
-        RegisterHandler(new AsteroidSmallHandler(asteroidSpawnerService));
-        RegisterHandler(new AsteroidLargeHandler(asteroidSpawnerService));
+        RegisterHandler(new AsteroidSmallHandler(asteroidSpawnerService, scoringService));
+        RegisterHandler(new AsteroidLargeHandler(asteroidSpawnerService, scoringService));
     }
 
     public void Handle(Asteroid item)

@@ -16,8 +16,10 @@ public class InitializeHiScoreDataAction : InitializeAction
     public override void Invoke()
     {
         _playerPrefsRepositoryFactory.RepositoryOf<HiScoreData>().Create(
-            new HiScoreData { HiScore = 999 }
-            );
+            new HiScoreData 
+            {
+                HiScore = 0 
+            });
     }
 }
 
@@ -38,6 +40,25 @@ public class InitializeGameSessionDataAction : InitializeAction
                 Lives = 3,
                 Score = 0,
                 Wave = 1
+            });
+    }
+}
+
+public class InitializeAsteroidDataAction : InitializeAction
+{
+    private readonly InMemoryRepositoryFactory _inMemoryRepositoryFactory;
+
+    public InitializeAsteroidDataAction(InMemoryRepositoryFactory repositoryFactory)
+    {
+        _inMemoryRepositoryFactory = repositoryFactory;
+    }
+
+    public override void Invoke()
+    {
+        _inMemoryRepositoryFactory.RepositoryOf<AsteroidData>().Create(
+            new AsteroidData
+            {
+                
             });
     }
 }

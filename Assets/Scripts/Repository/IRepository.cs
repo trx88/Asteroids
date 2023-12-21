@@ -41,7 +41,7 @@ public interface IRepository<TItem> where TItem : class, IItem
 
     int Count();
     TItem Create(TItem value);
-    void Delete(TItem value);
+    void Delete(string id);
     bool Exists(string id);
     TItem Get(string id);
     IEnumerable<TItem> Get(Func<TItem, bool> predicate);
@@ -93,14 +93,14 @@ public abstract class Repository<TItem> : IRepository<TItem> where TItem : class
         return result;
     }
 
-    public virtual void Delete(TItem value)
+    public virtual void Delete(string id)
     {
         if(_items == null)
         {
             LoadOrInitializeRepozitory();
         }
 
-        if(_items.TryRemove(value.Id, out TItem removedItem))
+        if(_items.TryRemove(id, out TItem removedItem))
         {
             ItemRemoved?.Invoke(removedItem);
         }
@@ -212,15 +212,15 @@ public class PlayerPrefsRepository<TItem> : Repository<TItem> where TItem : clas
         return result;
     }
 
-    public override void Delete(TItem value)
+    public override void Delete(string id)
     {
-        base.Create(value);
+        base.Delete(id);
         Save();
     }
 
     public override void Update(TItem value)
     {
-        base.Create(value);
+        base.Update(value);
         Save();
     }
 
@@ -249,4 +249,9 @@ public class GameSessionData : Item, IMemoryItem
     [JsonProperty("score")] public int Score { get; set; }
     [JsonProperty("wave")] public int Wave { get; set; }
     [JsonProperty("lives")] public int Lives { get; set; }
+}
+
+public class AsteroidData : Item, IMemoryItem
+{
+    [JsonProperty] public string AsteroidUniqueId { get; set; }
 }

@@ -6,15 +6,12 @@ public class MainInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
+        InstallRepositoryFactories();
 
         InstallControllers();
         InstallServices();
         InstallSignals();
         InstallFactories();
-
-        InstallRepositoryFactories();
-        ConfigureInMemoryRepositories();
-        ConfigurePlayerPrefsRepositories();
     }
 
     private void InstallControllers()
@@ -26,6 +23,7 @@ public class MainInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<AsteroidSpawnerService>().AsSingle();
         Container.BindInterfacesAndSelfTo<AsteroidHandlerService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ScoringService>().AsSingle();
     }
 
     private void InstallSignals()
@@ -43,6 +41,9 @@ public class MainInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<InMemoryRepositoryFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<PlayerPrefsRepositoryFactory>().AsSingle();
+
+        ConfigureInMemoryRepositories();
+        ConfigurePlayerPrefsRepositories();
     }
 
     private void ConfigureInMemoryRepositories()
@@ -52,6 +53,9 @@ public class MainInstaller : MonoInstaller
         inMemoryRepoFactory.AddRepositoryConfig(
             new RepositoryConfig(typeof(GameSessionData),
             new InitializeGameSessionDataAction(inMemoryRepoFactory)
+            ));
+        inMemoryRepoFactory.AddRepositoryConfig(
+            new RepositoryConfig(typeof(AsteroidData)
             ));
     }
 

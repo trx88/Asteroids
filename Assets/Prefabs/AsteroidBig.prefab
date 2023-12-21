@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroy: {fileID: 8300000, guid: f2ce2449b084375438cc51a7de3a32d5, type: 3}
+  _scorePoints: 1
 --- !u!114 &-7725038759381183760
 MonoBehaviour:
   m_ObjectHideFlags: 0

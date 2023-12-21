@@ -24,16 +24,22 @@ public abstract class Handler<T> : IHandler<T>
 public class AsteroidSmallHandler : Handler<Asteroid>
 {
     private readonly IAsteroidSpawnerService _asteroidSpawnerService;
+    private readonly IScoringService _scoringService;
 
-    public AsteroidSmallHandler(IAsteroidSpawnerService asteroidSpawnerService)
+    public AsteroidSmallHandler(
+        IAsteroidSpawnerService asteroidSpawnerService,
+        IScoringService scoringService
+        )
     {
         _asteroidSpawnerService = asteroidSpawnerService;
+        _scoringService = scoringService;
     }
 
     public override void HandleItem(Asteroid item)
     {
         if (item.GetType() == typeof(AsteroidSmall))
         {
+            _scoringService.UpdateScore(item);
             _asteroidSpawnerService.DestroyAsteroid(item);
         }
         else
@@ -46,16 +52,22 @@ public class AsteroidSmallHandler : Handler<Asteroid>
 public class AsteroidLargeHandler : Handler<Asteroid>
 {
     private readonly IAsteroidSpawnerService _asteroidSpawnerService;
+    private readonly IScoringService _scoringService;
 
-    public AsteroidLargeHandler(IAsteroidSpawnerService asteroidSpawnerService)
+    public AsteroidLargeHandler(
+        IAsteroidSpawnerService asteroidSpawnerService,
+        IScoringService scoringService
+        )
     {
         _asteroidSpawnerService = asteroidSpawnerService;
+        _scoringService = scoringService;
     }
 
     public override void HandleItem(Asteroid item)
     {
         if (item.GetType() == typeof(AsteroidLarge))
         {
+            _scoringService.UpdateScore(item);
             _asteroidSpawnerService.DestroyAsteroid(item);
             for (int i = 0; i < 3; i++)
             {

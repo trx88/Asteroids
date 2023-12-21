@@ -103,10 +103,6 @@ public class ShipController : MonoBehaviour
 
         // Play a shoot sound
         AudioSource.PlayClipAtPoint(shoot, Camera.main.transform.position);
-
-        var gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
-        gameSessionData.Score++;
-        _gameSessionDataRepository.Update(gameSessionData);
     }
 
     Quaternion ModifyQuaternionWithEuler(Quaternion rotation, Vector3 euler)

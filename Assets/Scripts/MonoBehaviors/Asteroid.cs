@@ -4,7 +4,10 @@ using Zenject;
 
 public abstract class Asteroid : MonoBehaviour, IAsteroid
 {
-    [SerializeField] private AudioClip _destroy;
+    [SerializeField] private AudioClip _destroy = default;
+    [SerializeField] private int _scorePoints = default;
+
+    public int ScorePoints { get => _scorePoints; }
 
     protected System.Guid uniqueId;
     public System.Guid UniqueId { get => uniqueId; }

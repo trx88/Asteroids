@@ -4,11 +4,6 @@ using Zenject;
 
 public class GameController : MonoBehaviour
 {
-    private float _topBoundry;
-    private float _bottomBoundry;
-    private float _leftBoundry;
-    private float _rightBoundry;
-
     private int score;
     private int hiscore;
     private int asteroidsRemaining;
@@ -33,12 +28,6 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _topBoundry = Camera.main.orthographicSize;
-        _bottomBoundry = -Camera.main.orthographicSize;
-        _leftBoundry = -Camera.main.orthographicSize * Camera.main.aspect;
-        _rightBoundry = Camera.main.orthographicSize * Camera.main.aspect;
-
-        hiscore = PlayerPrefs.GetInt("hiscore", 0);
         BeginGame();
     }
 
@@ -66,7 +55,7 @@ public class GameController : MonoBehaviour
 
         //SpawnAsteroids();
         //DestroyExistingAsteroids();
-        _asteroidController.DestroyAllAsteroids();
+        //_asteroidController.DestroyAllAsteroids();
         _asteroidController.SpawnAtStart();
     }
 

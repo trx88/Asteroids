@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 public class AsteroidSpawnerService : IAsteroidSpawnerService
@@ -10,11 +11,21 @@ public class AsteroidSpawnerService : IAsteroidSpawnerService
     private float _rightBoundry;
 
     private readonly List<Asteroid> _asteroids = new List<Asteroid>();
+    private readonly ObservableCollection<Asteroid> x = 
+        new System.Collections.ObjectModel.ObservableCollection<Asteroid>();
     private readonly IAsteroidFactory _asteroidFactory;
 
-    private AsteroidSpawnerService(IAsteroidFactory asteroidFactory)
+    private IRepository<AsteroidData> _asteroidDataRepository;
+
+    private AsteroidSpawnerService(
+        InMemoryRepositoryFactory inMemoryRepositoryFactory,
+        IAsteroidFactory asteroidFactory)
     {
         _asteroidFactory = asteroidFactory;
+        _asteroidDataRepository = inMemoryRepositoryFactory.RepositoryOf<AsteroidData>();
+
+        //_asteroidDataRepository.ItemAdded += OnAsteroidAdded;
+        _asteroidDataRepository.ItemRemoved += OnAsteroidRemoved;
 
         _topBoundry = Camera.main.orthographicSize;
         _bottomBoundry = -Camera.main.orthographicSize;
@@ -22,11 +33,31 @@ public class AsteroidSpawnerService : IAsteroidSpawnerService
         _rightBoundry = Camera.main.orthographicSize * Camera.main.aspect;
     }
 
+    ~AsteroidSpawnerService()
+    {
+        //_asteroidDataRepository.ItemAdded -= OnAsteroidAdded;
+        _asteroidDataRepository.ItemRemoved -= OnAsteroidRemoved;
+    }
+
+    //private void OnAsteroidAdded(AsteroidData asteroidData)
+    //{
+    //}
+
+    private void OnAsteroidRemoved(AsteroidData asteroidData)
+    {
+        if(_asteroidDataRepository.Count() == 0)
+        {
+            SpawnAtStart();
+        }
+    }
+
     public void DestroyAllAsteroids()
     {
         for (int i = 0; i < _asteroids.Count; i++)
         {
             GameObject.Destroy(_asteroids[i].gameObject);
+            _asteroidDataRepository.Delete(_asteroids[i].UniqueId.ToString());
+            
             _asteroids.RemoveAt(i);
         }
     }
@@ -37,6 +68,8 @@ public class AsteroidSpawnerService : IAsteroidSpawnerService
         if(asteroidToDestroy != null)
         {
             GameObject.Destroy(asteroid.gameObject);
+            _asteroidDataRepository.Delete(asteroid.UniqueId.ToString());
+            
             _asteroids.Remove(asteroid);
         }
     }
@@ -48,6 +81,8 @@ public class AsteroidSpawnerService : IAsteroidSpawnerService
 
     public void SpawnAtStart(int numberOfAsteroidsToSpawn = 4)
     {
+        DestroyAllAsteroids();
+
         for (int i = 0; i < numberOfAsteroidsToSpawn; i++)
         {
             SpawnLargeAsteroid();
@@ -65,6 +100,13 @@ public class AsteroidSpawnerService : IAsteroidSpawnerService
         asteroid.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-0.0f, 359.0f));
 
         _asteroids.Add(asteroid);
+
+        _asteroidDataRepository.Create(new
+            AsteroidData
+        {
+            Id = asteroid.UniqueId.ToString(),
+            AsteroidUniqueId = asteroid.UniqueId.ToString()
+        });
     }
 
     public void SpawnSmallFromLarge(Vector3 largeAsteroidPosition)
@@ -81,5 +123,12 @@ public class AsteroidSpawnerService : IAsteroidSpawnerService
         asteroid.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-0.0f, 359.0f));
 
         _asteroids.Add(asteroid);
+
+        _asteroidDataRepository.Create(new 
+            AsteroidData 
+        { 
+            Id = asteroid.UniqueId.ToString(),
+            AsteroidUniqueId = asteroid.UniqueId.ToString()
+        });
     }
 }
