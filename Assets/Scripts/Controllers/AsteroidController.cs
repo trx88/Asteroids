@@ -1,3 +1,4 @@
+using RovioAsteroids.MonoBehaviors;
 using RovioAsteroids.Services.Abstraction;
 using RovioAsteroids.Signals;
 using UnityEngine;

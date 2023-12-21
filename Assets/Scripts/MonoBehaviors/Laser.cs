@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace RovioAsteroids.Controllers
+namespace RovioAsteroids.MonoBehaviors
 {
-    public class BulletController : MonoBehaviour
+    public class Laser : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()

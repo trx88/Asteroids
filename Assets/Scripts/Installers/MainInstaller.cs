@@ -1,4 +1,7 @@
+using RovioAsteroids.Actions;
 using RovioAsteroids.Controllers;
+using RovioAsteroids.MonoBehaviors.GameObjectFactory;
+using RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction;
 using RovioAsteroids.MVVM.ViewModels;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Services;
@@ -55,6 +58,7 @@ namespace RovioAsteroids.Installers
         private void InstallFactories()
         {
             Container.Bind<IAsteroidFactory>().To<AsteroidFactory>().AsSingle();
+            Container.Bind<ILaserFactory>().To<LaserFactory>().AsSingle();
         }
 
         private void InstallRepositoryFactories()

@@ -1,4 +1,5 @@
-﻿using RovioAsteroids.Repository.Items.Abstraction;
+﻿using RovioAsteroids.Actions.Abstraction;
+using RovioAsteroids.Repository.Items.Abstraction;
 using RovioAsteroids.Repository.Repositories.Abstraction;
 using System;
 using System.Collections.Concurrent;
@@ -62,10 +63,6 @@ namespace RovioAsteroids.Repository.Repositories
             if (_items.TryRemove(id, out TItem removedItem))
             {
                 ItemRemoved?.Invoke(removedItem);
-            }
-            else
-            {
-                throw new KeyNotFoundException($"{typeof(TItem)} with Id: {id} not found in repository!");
             }
         }
 

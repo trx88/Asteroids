@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: AsteroidSmall
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: afba1620e1dc900438ae6e7da66e293f
+    m_Address: Laser
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cd990b720291e5043b0a9a52d8c62937, type: 2}
   m_SchemaSet:

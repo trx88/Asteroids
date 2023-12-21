@@ -1,47 +1,24 @@
+using RovioAsteroids.Actions.Abstraction;
 using RovioAsteroids.Repository.Items.DataModels;
 
-public abstract class InitializeAction
+namespace RovioAsteroids.Actions
 {
-    public abstract void Invoke();
-}
-
-
-public class InitializeHiScoreDataAction : InitializeAction
-{
-    private readonly PlayerPrefsRepositoryFactory _playerPrefsRepositoryFactory;
-
-    public InitializeHiScoreDataAction(PlayerPrefsRepositoryFactory repositoryFactory)
+    public class InitializeHiScoreDataAction : InitializeAction
     {
-        _playerPrefsRepositoryFactory = repositoryFactory;
-    }
+        private readonly PlayerPrefsRepositoryFactory _playerPrefsRepositoryFactory;
 
-    public override void Invoke()
-    {
-        _playerPrefsRepositoryFactory.RepositoryOf<HiScoreData>().Create(
-            new HiScoreData 
-            {
-                HiScore = 0 
-            });
-    }
-}
+        public InitializeHiScoreDataAction(PlayerPrefsRepositoryFactory repositoryFactory)
+        {
+            _playerPrefsRepositoryFactory = repositoryFactory;
+        }
 
-public class InitializeGameSessionDataAction : InitializeAction
-{
-    private readonly InMemoryRepositoryFactory _inMemoryRepositoryFactory;
-
-    public InitializeGameSessionDataAction(InMemoryRepositoryFactory repositoryFactory)
-    {
-        _inMemoryRepositoryFactory = repositoryFactory;
-    }
-
-    public override void Invoke()
-    {
-        _inMemoryRepositoryFactory.RepositoryOf<GameSessionData>().Create(
-            new GameSessionData
-            {
-                Lives = 3,
-                Score = 0,
-                Wave = 1
-            });
+        public override void Invoke()
+        {
+            _playerPrefsRepositoryFactory.RepositoryOf<HiScoreData>().Create(
+                new HiScoreData
+                {
+                    HiScore = 0
+                });
+        }
     }
 }

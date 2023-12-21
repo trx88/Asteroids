@@ -1,4 +1,7 @@
-﻿using RovioAsteroids.Services.Abstraction;
+﻿using RovioAsteroids.ChainOfResponsibility;
+using RovioAsteroids.ChainOfResponsibility.Abstraction;
+using RovioAsteroids.MonoBehaviors;
+using RovioAsteroids.Services.Abstraction;
 using System.Collections.Generic;
 using System.Linq;
 

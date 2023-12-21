@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Zenject;
-
-public class AsteroidSmall : Asteroid
+namespace RovioAsteroids.MonoBehaviors
 {
-    // Start is called before the first frame update
-    void Start()
+    public class AsteroidSmall : Asteroid
     {
-        Init();
+        // Start is called before the first frame update
+        void Start()
+        {
+            Init();
+        }
     }
 }

@@ -1,93 +1,56 @@
+using RovioAsteroids.MonoBehaviors.Abstraction;
 using RovioAsteroids.Signals;
-using RovioAsteroids.Utils;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
-public abstract class Asteroid : MonoBehaviour, IAsteroid
+namespace RovioAsteroids.MonoBehaviors
 {
-    [SerializeField] private AudioClip _destroy = default;
-    [SerializeField] private int _scorePoints = default;
-
-    public int ScorePoints { get => _scorePoints; }
-
-    protected string uniqueId;
-    public string UniqueId { get => uniqueId; }
-
-    private SignalBus _signalBus;
-
-    [Inject]
-    private void Construct(SignalBus signalBus)
+    public abstract class Asteroid : MonoBehaviour, IAsteroid
     {
-        _signalBus = signalBus;
-    }
+        [SerializeField] private AudioClip _destroy = default;
+        [SerializeField] private int _scorePoints = default;
 
-    private void Awake()
-    {
-        uniqueId = System.Guid.NewGuid().ToString();
-    }
+        public int ScorePoints { get => _scorePoints; }
 
-    void OnDestroy()
-    {
-        AudioSource.PlayClipAtPoint(_destroy, Camera.main.transform.position);
-    }
+        protected string uniqueId;
+        public string UniqueId { get => uniqueId; }
 
-    protected void Init()
-    {
-        // Push the asteroid in the direction it is facing
-        GetComponent<Rigidbody2D>()
-            .AddForce(transform.up * Random.Range(-50.0f, 150.0f));
+        private SignalBus _signalBus;
 
-        // Give a random angular velocity/rotation
-        GetComponent<Rigidbody2D>()
-            .angularVelocity = Random.Range(-0.0f, 90.0f);
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag.Equals("Laser"))
-        //if (other.gameObject.GetComponent<BulletController>() != null)
+        [Inject]
+        private void Construct(SignalBus signalBus)
         {
-            _signalBus.Fire(new AsteroidCollisionSignal(this, other.gameObject));
+            _signalBus = signalBus;
         }
-    }
 
-}
+        private void Awake()
+        {
+            uniqueId = System.Guid.NewGuid().ToString();
+        }
 
-public interface IAsteroid
-{
+        void OnDestroy()
+        {
+            AudioSource.PlayClipAtPoint(_destroy, Camera.main.transform.position);
+        }
 
-}
+        protected void Init()
+        {
+            // Push the asteroid in the direction it is facing
+            GetComponent<Rigidbody2D>()
+                .AddForce(transform.up * Random.Range(-50.0f, 150.0f));
 
-public interface IAsteroidFactory
-{
-    AsteroidLarge CreateLargeAsteroid();
-    AsteroidSmall CreateSmallAsteroid();
-}
+            // Give a random angular velocity/rotation
+            GetComponent<Rigidbody2D>()
+                .angularVelocity = Random.Range(-0.0f, 90.0f);
+        }
 
-public class AsteroidFactory : IAsteroidFactory
-{
-    private readonly DiContainer _diContainer;
-
-    private GameObject _asteroidLargeFromAddressable;
-    private GameObject _asteroidSmallFromAddressable;
-
-    [Inject]
-    public AsteroidFactory(DiContainer diContainer)
-    {
-        _diContainer = diContainer;
-
-        _asteroidLargeFromAddressable = AddressablesManager.LoadAssetSync<GameObject>(StaticStrings.Addressable_AsteroidLarge);
-        _asteroidSmallFromAddressable = AddressablesManager.LoadAssetSync<GameObject>(StaticStrings.Addressable_AsteroidSmall);
-    }
-
-    public AsteroidLarge CreateLargeAsteroid()
-    {
-        return _diContainer.InstantiatePrefabForComponent<AsteroidLarge>(_asteroidLargeFromAddressable);
-    }
-
-    public AsteroidSmall CreateSmallAsteroid()
-    {
-        return _diContainer.InstantiatePrefabForComponent<AsteroidSmall>(_asteroidSmallFromAddressable);
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.tag.Equals("Laser"))
+            //if (other.gameObject.GetComponent<BulletController>() != null)
+            {
+                _signalBus.Fire(new AsteroidCollisionSignal(this, other.gameObject));
+            }
+        }
     }
 }

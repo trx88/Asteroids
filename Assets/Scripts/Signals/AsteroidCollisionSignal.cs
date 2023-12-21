@@ -1,3 +1,4 @@
+using RovioAsteroids.MonoBehaviors;
 using UnityEngine;
 
 namespace RovioAsteroids.Signals

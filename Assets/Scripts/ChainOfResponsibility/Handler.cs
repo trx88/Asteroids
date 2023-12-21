@@ -1,5 +1,4 @@
 using RovioAsteroids.ChainOfResponsibility.Abstraction;
-using RovioAsteroids.Services.Abstraction;
 
 namespace RovioAsteroids.ChainOfResponsibility
 {

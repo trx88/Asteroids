@@ -5,6 +5,7 @@ using System;
 using RovioAsteroids.Repository.Items.Abstraction;
 using RovioAsteroids.Repository.Repositories.Abstraction;
 using RovioAsteroids.Repository.Repositories;
+using RovioAsteroids.Actions.Abstraction;
 
 public class RepositoryConfig
 {
