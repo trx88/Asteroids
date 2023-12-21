@@ -84,6 +84,7 @@ public class GameController : MonoBehaviour
         _gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
         _gameSessionData.Lives = 3;
         _gameSessionData.Score = 0;
+        _gameSessionData.Wave = 1;
         _gameSessionDataRepository.Update(_gameSessionData);
     }
 }

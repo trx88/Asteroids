@@ -305,6 +305,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd35c1941feab2439d7fd23670b05f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &514595264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 514595265}
+  - component: {fileID: 514595266}
+  m_Layer: 0
+  m_Name: View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &514595265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514595264}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.17396532, y: -0.11652162, z: -0.08412933}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &514595266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514595264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d7077cf78bce743aaff7054fd39cf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreText: {fileID: 1968238994}
+  _livesText: {fileID: 1167007572}
+  _waveText: {fileID: 2042739325}
+  _hiscoreText: {fileID: 798307453}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,11 +751,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15ce1447caa2c44d89f47407567c45a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroid: {fileID: 0}
-  scoreText: {fileID: 1968238994}
-  livesText: {fileID: 1167007572}
-  waveText: {fileID: 2042739325}
-  hiscoreText: {fileID: 798307453}
 --- !u!1 &1883600797
 GameObject:
   m_ObjectHideFlags: 0

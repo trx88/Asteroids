@@ -9,9 +9,15 @@ public class MainInstaller : MonoInstaller
         InstallFactories();
         InstallServices();
         InstallControllers();
+        InstallViewModels();
 
-        //Done here, so GameController does not inject AsteroidController.
+        //Done here, so GameController does not need to inject AsteroidController.
         Container.Resolve<AsteroidController>();
+    }
+
+    private void InstallViewModels()
+    {
+        Container.BindInterfacesAndSelfTo<HudScreenViewModel>().AsSingle();
     }
 
     private void InstallControllers()

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -44,39 +42,11 @@ public class View<TViewModel> : MonoBehaviour, IView where TViewModel : IViewMod
 
     public void Hide()
     {
-        
+
     }
 
     public void Show()
     {
-        
-    }
-}
 
-public class HudScreenView : View<HudScreenViewModel>, IView
-{
-    [SerializeField] private TextMeshProUGUI _scoreText = default;
-    [SerializeField] private TextMeshProUGUI _livesText = default;
-    [SerializeField] private TextMeshProUGUI _waveText = default;
-    [SerializeField] private TextMeshProUGUI _hiscoreText = default;
-
-    protected override void SetupDataBindings()
-    {
-        base.SetupDataBindings();
-
-        ViewModel.SessionData.BindTo(OnGameSessionDataChanged);
-        ViewModel.ScoreData.BindTo(OnHiScoreDataChanged);
-    }
-
-    private void OnGameSessionDataChanged(GameSessionData gameSessionData)
-    {
-        _scoreText.text = gameSessionData.Score.ToString();
-        _livesText.text = gameSessionData.Lives.ToString();
-        _waveText.text = gameSessionData.Wave.ToString();
-    }
-
-    private void OnHiScoreDataChanged(HiScoreData hiScoreData)
-    {
-        _hiscoreText.text = hiScoreData.HiScore.ToString();
     }
 }
