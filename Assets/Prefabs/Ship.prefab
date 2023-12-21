@@ -188,10 +188,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771b5913c45d4634ab95f37d4b580ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crash: {fileID: 8300000, guid: 2de03051035eed04ea5289418c95e40a, type: 3}
-  shoot: {fileID: 8300000, guid: 28f19ac51dc8d9042b96941b3fb10d81, type: 3}
-  bullet: {fileID: 4464418945582196199, guid: afba1620e1dc900438ae6e7da66e293f, type: 3}
-  GunSystem: {fileID: 5046885428062841385}
+  _rotationSpeed: 100
+  _thrustForce: 3
+  _soundCrash: {fileID: 8300000, guid: 2de03051035eed04ea5289418c95e40a, type: 3}
+  _soundShoot: {fileID: 8300000, guid: 28f19ac51dc8d9042b96941b3fb10d81, type: 3}
+  _laser: {fileID: 4464418945582196199, guid: afba1620e1dc900438ae6e7da66e293f, type: 3}
+  _gunSystem: {fileID: 5046885428062841385}
 --- !u!114 &3080067592678692211
 MonoBehaviour:
   m_ObjectHideFlags: 0
