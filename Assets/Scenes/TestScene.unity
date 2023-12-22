@@ -515,8 +515,8 @@ MonoBehaviour:
   _components:
   - {fileID: 519420031}
   _identifier: MainCamera
-  _useSceneContext: 1
-  _context: {fileID: 367150385}
+  _useSceneContext: 0
+  _context: {fileID: 0}
   _bindType: 0
 --- !u!1 &798307451
 GameObject:
