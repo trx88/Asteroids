@@ -4,9 +4,9 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "AsteroidsScripts",
+        "Zenject",
         "Zenject-TestFramework",
-        "Zenject"
+        "AsteroidsScripts"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
