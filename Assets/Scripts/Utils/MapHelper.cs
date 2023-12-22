@@ -5,13 +5,11 @@ namespace RovioAsteroids.Utils
 {
     public class MapHelper
     {
-        readonly Camera _camera;
+        private readonly Camera _camera;
 
-        public MapHelper(
-            [Inject(Id = "MainCamera")]
-            Camera camera)
+        public MapHelper()
         {
-            _camera = camera;
+            _camera = Camera.main;
         }
 
         public float Bottom
