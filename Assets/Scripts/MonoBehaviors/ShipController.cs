@@ -56,6 +56,7 @@ namespace RovioAsteroids.MonoBehaviors
         {
             if (other.gameObject.tag != "Laser")
             {
+                GetComponentInChildren<ParticleSystem>().Play();
                 AudioSource.PlayClipAtPoint
                     (_soundCrash, Camera.main.transform.position);
 
