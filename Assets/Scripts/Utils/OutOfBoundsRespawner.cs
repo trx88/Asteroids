@@ -3,6 +3,9 @@ using Zenject;
 
 namespace RovioAsteroids.Utils
 {
+    /// <summary>
+    /// "Teleports" the GameObject from one edge of the screen to another.
+    /// </summary>
     public class OutOfBoundsRespawner : MonoBehaviour
     {
         private MapHelper _mapHelper;
@@ -13,7 +16,6 @@ namespace RovioAsteroids.Utils
             _mapHelper = mapHelper;
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (transform.position.x > _mapHelper.Right)

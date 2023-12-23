@@ -3,6 +3,9 @@ using RovioAsteroids.Services.Abstraction;
 
 namespace RovioAsteroids.ChainOfResponsibility
 {
+    /// <summary>
+    /// Handles logic when enemy ship is destroyed. 
+    /// </summary>
     public class ShipEnemyHandler : Handler<Enemy>
     {
         private readonly IEnemySpawnerService _enemySpawnerService;

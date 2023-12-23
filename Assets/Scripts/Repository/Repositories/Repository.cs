@@ -8,11 +8,19 @@ using System.Linq;
 
 namespace RovioAsteroids.Repository.Repositories
 {
+    /// <summary>
+    /// Base Repository is implemented in a standard way (with CRUD methods) 
+    /// with addition of data change Actions other classes subscribe to.
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
     public abstract class Repository<TItem> : IRepository<TItem> where TItem : class, IItem
     {
         protected ConcurrentDictionary<string, TItem> _items;
 
+        //Each repository can initialize using an initialization action for specific data model
+        //(basically set default values and/or load stored data in case of PlayerPrefsRepository).
         protected InitializeAction InitializeAction { get; private set; }
+
         public Action<TItem> ItemAdded { get; set; }
         public Action<TItem> ItemChanged { get; set; }
         public Action<TItem> ItemRemoved { get; set; }

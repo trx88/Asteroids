@@ -3,8 +3,13 @@ using RovioAsteroids.Services.Abstraction;
 
 namespace RovioAsteroids.ChainOfResponsibility
 {
+    /// <summary>
+    /// Handles logic when large asteroid is destroyed. 
+    /// </summary>
     public class AsteroidLargeHandler : Handler<Enemy>
     {
+        private const int _numberOfSmallAsteroidsToSpawn = 3;
+
         private readonly IEnemySpawnerService _enemySpawnerService;
         private readonly IScoringService _scoringService;
 
@@ -23,7 +28,7 @@ namespace RovioAsteroids.ChainOfResponsibility
             {
                 _scoringService.UpdateScore(item);
                 _enemySpawnerService.DestroyEnemy(item);
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < _numberOfSmallAsteroidsToSpawn; i++)
                 {
                     _enemySpawnerService.SpawnSmallAsteroidFromLargeAsteroid(item.transform.position);
                 }

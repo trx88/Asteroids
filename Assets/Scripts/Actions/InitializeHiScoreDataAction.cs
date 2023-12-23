@@ -4,6 +4,9 @@ using RovioAsteroids.Repository.Repositories.RepositoryFactories;
 
 namespace RovioAsteroids.Actions
 {
+    /// <summary>
+    /// Used to initialize a Repository of HiScoreData
+    /// </summary>
     public class InitializeHiScoreDataAction : InitializeAction
     {
         private readonly PlayerPrefsRepositoryFactory _playerPrefsRepositoryFactory;

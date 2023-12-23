@@ -4,6 +4,9 @@ using RovioAsteroids.Repository.Repositories.RepositoryFactories;
 
 namespace RovioAsteroids.Actions
 {
+    /// <summary>
+    /// Used to initialize a Repository of GameSessionData
+    /// </summary>
     public class InitializeGameSessionDataAction : InitializeAction
     {
         private readonly InMemoryRepositoryFactory _inMemoryRepositoryFactory;

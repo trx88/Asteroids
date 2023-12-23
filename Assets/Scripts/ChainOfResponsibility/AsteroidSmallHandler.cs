@@ -3,6 +3,9 @@ using RovioAsteroids.Services.Abstraction;
 
 namespace RovioAsteroids.ChainOfResponsibility
 {
+    /// <summary>
+    /// Handles logic when small asteroid is destroyed. 
+    /// </summary>
     public class AsteroidSmallHandler : Handler<Enemy>
     {
         private readonly IEnemySpawnerService _enemySpawnerService;

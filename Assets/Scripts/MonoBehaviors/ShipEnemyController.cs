@@ -5,6 +5,9 @@ using Zenject;
 
 namespace RovioAsteroids.MonoBehaviors
 {
+    /// <summary>
+    /// Controls the enemy ship.
+    /// </summary>
     public class ShipEnemyController : Enemy
     {
         [SerializeField] private float _rotationSpeed = 10.0f;
@@ -28,10 +31,9 @@ namespace RovioAsteroids.MonoBehaviors
 
         protected override void Init()
         {
-            //We don't want push and spin for enemy ship.
+            //Don't want push and spin for enemy ship.
         }
 
-        // Start is called before the first frame update
         void Start()
         {
             GameObject _player = GameObject.FindWithTag("Player");
@@ -47,6 +49,7 @@ namespace RovioAsteroids.MonoBehaviors
             StopCoroutine(EnemyShipCoroutine());
         }
 
+        //Avoiding the usage of Update when possible
         private IEnumerator EnemyShipCoroutine()
         {
             while (true)

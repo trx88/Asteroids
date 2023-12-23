@@ -16,12 +16,14 @@ namespace RovioAsteroids.MVVM.Views
         {
             base.SetupDataBindings();
 
+            //Proved actions to Bindables.
             ViewModel.SessionData.BindTo(OnGameSessionDataChanged);
             ViewModel.ScoreData.BindTo(OnHiScoreDataChanged);
         }
 
         private void OnGameSessionDataChanged(GameSessionData gameSessionData)
         {
+            //React to Bindable Action and update the UI elements.
             _scoreText.text = $"Score: {gameSessionData.Score}";
             _livesText.text = $"Lives: {gameSessionData.Lives}";
             _waveText.text = $"Wave: {gameSessionData.Wave}";
@@ -29,6 +31,7 @@ namespace RovioAsteroids.MVVM.Views
 
         private void OnHiScoreDataChanged(HiScoreData hiScoreData)
         {
+            //React to Bindable Action and update the UI elements.
             _hiscoreText.text = $"HiScore: {hiScoreData.HiScore}";
         }
     }

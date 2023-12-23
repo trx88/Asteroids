@@ -1,8 +1,11 @@
 using RovioAsteroids.ChainOfResponsibility.Abstraction;
-using RovioAsteroids.MonoBehaviors.Abstraction;
 
 namespace RovioAsteroids.ChainOfResponsibility
 {
+    /// <summary>
+    /// Abstract handler that specific Handlers should inherit from.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class Handler<T> : IHandler<T>
     {
         protected IHandler<T>? Successor;

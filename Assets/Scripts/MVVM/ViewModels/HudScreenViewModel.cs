@@ -8,6 +8,7 @@ namespace RovioAsteroids.MVVM.ViewModels
 {
     public class HudScreenViewModel : ViewModel
     {
+        //Create Bindables for each data type that needs to be shown in the View.
         public Bindable<GameSessionData> SessionData { get; private set; } = new Bindable<GameSessionData>();
         public Bindable<HiScoreData> ScoreData { get; private set; } = new Bindable<HiScoreData>();
 
@@ -19,15 +20,20 @@ namespace RovioAsteroids.MVVM.ViewModels
             PlayerPrefsRepositoryFactory playerPrefsRepositoryFactory
             )
         {
+            //Get the needed repositories.
             _gameSessionDataRepository = inMemoryRepositoryFactory.RepositoryOf<GameSessionData>();
             _hiScoreDataRepository = playerPrefsRepositoryFactory.RepositoryOf<HiScoreData>();
         }
 
         #region Overrides
+        /// <summary>
+        /// Get/update data here.
+        /// </summary>
         public override void UpdateData()
         {
             base.UpdateData();
 
+            //Read the data from the repository and set the values.
             GameSessionData gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
             SetGameSessionData(gameSessionData);
 
@@ -35,6 +41,9 @@ namespace RovioAsteroids.MVVM.ViewModels
             SetHiScoreData(hiScoreData);
         }
 
+        /// <summary>
+        /// Subscribe to repository changes here.
+        /// </summary>
         public override void SubscribeToDataChanges()
         {
             base.SubscribeToDataChanges();
@@ -43,6 +52,9 @@ namespace RovioAsteroids.MVVM.ViewModels
             _hiScoreDataRepository.ItemChanged += OnHiScoreDataChanged;
         }
 
+        /// <summary>
+        /// Unsubscribe from repository changes here.
+        /// </summary>
         public override void UnsubscribeFromDataChanges()
         {
             base.UnsubscribeFromDataChanges();

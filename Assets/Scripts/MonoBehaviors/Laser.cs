@@ -6,8 +6,7 @@ namespace RovioAsteroids.MonoBehaviors
     {
         protected virtual void Init()
         {
-            GetComponent<Rigidbody2D>()
-                .AddForce(transform.up * 400);
+            GetComponent<Rigidbody2D>().AddForce(transform.up * 400);
         }
     }
 }

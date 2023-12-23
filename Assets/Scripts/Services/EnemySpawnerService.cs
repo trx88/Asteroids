@@ -10,6 +10,9 @@ using UnityEngine;
 
 namespace RovioAsteroids.Services
 {
+    /// <summary>
+    /// Handles the creation/destruction of enemies.
+    /// </summary>
     public class EnemySpawnerService : IEnemySpawnerService
     {
         private readonly List<Enemy> _enemies = new List<Enemy>();
@@ -40,7 +43,6 @@ namespace RovioAsteroids.Services
 
         public void DestroyEnemy(Enemy enemy)
         {
-            //Enemy enemyToDestroy = FindEnemy(enemy.UniqueId);
             if (FindEnemy(enemy.UniqueId) != null)
             {
                 GameObject.Destroy(enemy.gameObject);

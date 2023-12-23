@@ -8,6 +8,9 @@ using Zenject;
 
 namespace RovioAsteroids.Controllers
 {
+    /// <summary>
+    /// "Main" class. Handles core game logic like resetting a level, ending a game, etc.
+    /// </summary>
     public class GameController : MonoBehaviour
     {
         [SerializeField] private int defaultSpawnNumber = 4;
@@ -30,26 +33,25 @@ namespace RovioAsteroids.Controllers
 
         private void Awake()
         {
+            //Subscribing to item removal from the Repository
             _enemyDataRepository.ItemRemoved += OnEnemyRemoved;
             _gameSessionDataRepository.ItemChanged += OnGameSessionDataChanged;
         }
 
         private void OnDestroy()
         {
+            //Unsubscribing to item removal from the Repository
             _enemyDataRepository.ItemRemoved -= OnEnemyRemoved;
             _gameSessionDataRepository.ItemChanged -= OnGameSessionDataChanged;
         }
 
-        // Use this for initialization
         void Start()
         {
             BeginGame();
         }
 
-        // Update is called once per frame
         void Update()
         {
-            // Quit if player presses escape
             if (Input.GetKey(KeyCode.Escape))
             {
                 Application.Quit();
@@ -81,7 +83,7 @@ namespace RovioAsteroids.Controllers
         private void OnGameSessionDataChanged(GameSessionData gameSessionData)
         {
             _gameSessionData = gameSessionData;
-            //Death
+            //Game over
             if (gameSessionData.Lives == 0)
             {
                 BeginGame();

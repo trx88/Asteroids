@@ -3,6 +3,11 @@ using System;
 
 namespace RovioAsteroids.Repository.Repositories.RepositoryFactories
 {
+    /// <summary>
+    /// In order to get or create a repository for a specific data model, 
+    /// RepositoryConfig must be created for that specific data model 
+    /// that consists of a type and an optional InitializationAction.
+    /// </summary>
     public class RepositoryConfig
     {
         public Type ItemType { get; }

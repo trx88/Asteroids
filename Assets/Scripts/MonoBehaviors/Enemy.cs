@@ -1,5 +1,6 @@
 using RovioAsteroids.MonoBehaviors.Abstraction;
 using RovioAsteroids.Signals;
+using RovioAsteroids.Utils;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,8 @@ namespace RovioAsteroids.MonoBehaviors
 
         public int ScorePoints { get => _scorePoints; }
 
+        //Generates a unique id for each GameObject. 
+        //This id will be used with Repository as well to match object in all collections storing enemies.
         protected string uniqueId;
         public string UniqueId { get => uniqueId; }
 
@@ -44,8 +47,9 @@ namespace RovioAsteroids.MonoBehaviors
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.tag.Contains("Laser"))
+            if (other.gameObject.tag.Contains(StaticStrings.Tag_Laser))
             {
+                //Send a Signal that collision has happened. EnemyCollisionContoller subscribes to this Signal.
                 _signalBus.Fire(new EnemyCollisionSignal(this, other.gameObject));
             }
         }

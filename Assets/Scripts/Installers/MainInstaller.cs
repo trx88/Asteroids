@@ -12,6 +12,10 @@ using Zenject;
 
 namespace RovioAsteroids.Installers
 {
+    /// <summary>
+    /// Used to install all services/controllers/signals/factories/repositories
+    /// that will be injected throughout the project.
+    /// </summary>
     public class MainInstaller : MonoInstaller
     {
         public override void InstallBindings()
@@ -24,7 +28,7 @@ namespace RovioAsteroids.Installers
             InstallControllers();
             InstallViewModels();
 
-            //Done here, so GameController does not need to inject AsteroidController for it to be created on game start.
+            //Done here, so GameController does not need to inject EnemyCollisionController for it to be created on game start.
             Container.Resolve<EnemyCollisionController>();
         }
 
@@ -33,6 +37,7 @@ namespace RovioAsteroids.Installers
             Container.Bind<MapHelper>().AsSingle();
         }
 
+        //Used for UIs MVVM.
         private void InstallViewModels()
         {
             Container.BindInterfacesAndSelfTo<HudScreenViewModel>().AsSingle();
@@ -58,6 +63,10 @@ namespace RovioAsteroids.Installers
 
         private void InstallFactories()
         {
+            //Original idea was to have a generic Create<T> method,
+            //but the best I could do is bind multiple factories to a single interface
+            //and that still isn't what I wanted. 
+            //So each factory has a separate Create method for each GameObject variant.
             Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
             Container.Bind<ILaserFactory>().To<LaserFactory>().AsSingle();
         }

@@ -2,12 +2,16 @@ using RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.Abstraction;
 using RovioAsteroids.Repository.Repositories.RepositoryFactories;
+using RovioAsteroids.Utils;
 using System.Linq;
 using UnityEngine;
 using Zenject;
 
 namespace RovioAsteroids.MonoBehaviors
 {
+    /// <summary>
+    /// Controls the player ship.
+    /// </summary>
     public class ShipController : MonoBehaviour
     {
         [SerializeField] private float _rotationSpeed = 100.0f;
@@ -33,13 +37,13 @@ namespace RovioAsteroids.MonoBehaviors
         void FixedUpdate()
         {
             //Rotate ship
-            transform.Rotate(0, 0, -Input.GetAxis("Horizontal") *
+            transform.Rotate(0, 0, -Input.GetAxis(StaticStrings.Axis_Horizontal) *
                 _rotationSpeed * Time.deltaTime);
 
             //Thrust ship
             GetComponent<Rigidbody2D>().
                 AddForce(transform.up * _thrustForce *
-                    Input.GetAxis("Vertical"));
+                    Input.GetAxis(StaticStrings.Axis_Vertical));
         }
 
         private void Update()
@@ -54,11 +58,15 @@ namespace RovioAsteroids.MonoBehaviors
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.tag != "Laser")
+            if (other.gameObject.tag != StaticStrings.Tag_Laser)
             {
-                GetComponentInChildren<ParticleSystem>().Play();
-                AudioSource.PlayClipAtPoint
-                    (_soundCrash, Camera.main.transform.position);
+                var particles = GetComponentInChildren<ParticleSystem>();
+                if(particles != null)
+                {
+                    particles.Play();
+                }    
+
+                AudioSource.PlayClipAtPoint(_soundCrash, Camera.main.transform.position);
 
                 //Reset ship
                 transform.position = new Vector3(0, 0, 0);

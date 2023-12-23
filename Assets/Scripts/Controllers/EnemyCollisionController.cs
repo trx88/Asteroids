@@ -6,6 +6,9 @@ using Zenject;
 
 namespace RovioAsteroids.Controllers
 {
+    /// <summary>
+    /// Handles the collision of Enemy instances by using ChainOfResponsibility handlers. 
+    /// </summary>
     public class EnemyCollisionController
     {
         private readonly IHandlerService _handlerService;

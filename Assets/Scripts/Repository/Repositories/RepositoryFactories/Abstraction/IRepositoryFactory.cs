@@ -1,8 +1,5 @@
-using RovioAsteroids.Actions.Abstraction;
 using RovioAsteroids.Repository.Items.Abstraction;
-using RovioAsteroids.Repository.Repositories;
 using RovioAsteroids.Repository.Repositories.Abstraction;
-using RovioAsteroids.Repository.Repositories.RepositoryFactories;
 
 namespace RovioAsteroids.Repository.Repositories.RepositoryFactories.Abstraction
 {

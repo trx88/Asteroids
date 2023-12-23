@@ -3,6 +3,9 @@ using Zenject;
 
 namespace RovioAsteroids.Utils
 {
+    /// <summary>
+    /// Helper class to determine the size of the map.
+    /// </summary>
     public class MapHelper
     {
         private readonly Camera _camera;

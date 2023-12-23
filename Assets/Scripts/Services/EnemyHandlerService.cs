@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace RovioAsteroids.Services
 {
+    /// <summary>
+    /// Handles what happens before enemy destruction by using Chain Of Responsibility.
+    /// </summary>
     public class EnemyHandlerService : IHandlerService
     {
         private readonly List<IHandler<Enemy>> _enemyHandlers = new List<IHandler<Enemy>>();

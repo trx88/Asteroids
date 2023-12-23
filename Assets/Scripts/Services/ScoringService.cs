@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace RovioAsteroids.Services
 {
+    /// <summary>
+    /// Updates the player score.
+    /// </summary>
     public class ScoringService : IScoringService
     {
         private IRepository<HiScoreData> _highScoreDataRepository;

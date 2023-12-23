@@ -6,6 +6,9 @@ using Zenject;
 
 namespace RovioAsteroids.MonoBehaviors.GameObjectFactory
 {
+    /// <summary>
+    /// Used to instantiate laser game objects using Zenject.
+    /// </summary>
     public class LaserFactory : ILaserFactory
     {
         private readonly DiContainer _diContainer;

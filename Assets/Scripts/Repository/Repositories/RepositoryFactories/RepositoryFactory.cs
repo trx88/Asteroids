@@ -25,7 +25,9 @@ namespace RovioAsteroids.Repository.Repositories.RepositoryFactories
             {
                 if (_repositoryConfigs.TryGetValue(config.ItemType, out _))
                 {
-                    throw new Exception();
+                    throw new ArgumentException(
+                        $"Repository of type {config.ItemType} has been already declared, you are not allowed to have" +
+                        $" multiple configurations for same repository");
                 }
                 else
                 {
@@ -34,7 +36,9 @@ namespace RovioAsteroids.Repository.Repositories.RepositoryFactories
             }
             else
             {
-                throw new Exception();
+                throw new ArgumentException(
+                    $"Trying to add config for the repository of type {config.ItemType} while only" +
+                    $" items derived from {typeof(TItemFamily)} is accepted within {GetType()}");
             }
         }
 
@@ -56,11 +60,14 @@ namespace RovioAsteroids.Repository.Repositories.RepositoryFactories
                 }
                 else
                 {
-
+                    throw new ArgumentException(
+                        $"Trying to get repository of the item type {typeof(TItem)} which is not defined." +
+                        $" Use {nameof(AddRepositoryConfig)} to add repository definition for specific type");
                 }
             }
 
-            throw new Exception();
+            throw new ArgumentException(
+                $"Trying to get repository for {typeof(TItem)} which is not instance of type {typeof(IMemoryItem)}");
         }
 
         protected abstract Repository<TItem> GenerateRepositoryOf<TItem>(InitializeAction initializeAction) where TItem : class, TItemFamily, new();
