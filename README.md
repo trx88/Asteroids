@@ -1,4 +1,6 @@
 # RovioAsteroids
+## Screenshot
+![RovioAsteroidsScreenshot](https://github.com/trx88/RovioAsteroids/assets/10126815/f2175625-ac60-417f-8206-753e7604d206)
 ## Windows build of the game
 https://drive.google.com/drive/folders/1NY6gC5SvcLNH-BvO9P1Tvw035yR3qeZ9?usp=sharing
 ## 3rd party packages
