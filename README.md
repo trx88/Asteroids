@@ -48,6 +48,8 @@ View was implemented very simple, since there was no need (nor time) to integrat
 The goal is to keep the View as oblivious as possible. It is a MonoBehavior, since some Unity-specific code might be implemented (like animations).
 ### ViewModel
 ViewModel is where all the logic should live. ViewModel is tasked with getting the data, do any logic, and trigger the View to show the needed data. To help with this, a Bindable<T> was implemented. A Bindable binds to an Action provided by the View. When the Bindable data is set, provided Action is invoked triggering the View and notifying it what has changed. Actual UI elements are updated inside that callback method. MVVM has a clean separation of concerns. Although sometimes it's tempting to go around it, MVVM has no point then.
+## Private constructors
+There a lot of private constructors (usually for services and similar classes). This was done to prevent instantiating those classes by accident. The idea is to inject them, not create instances. Of course, that can be changed if the need arises.
 # Challenges
 I've never  using Zenject with unit testing in Unity, so I had to figure out what I need to include to able to use it correctly (game depends on dependency injection after all ba-dum-tsss). 
 I resorted to creating a BaseUnitTest class that inherits ZenjectUnitTestFixture. That way I was able to install everything like in the MainInstaller in the actual game. Not sure if this is a good practice, but it enabled me to write tests that use Zenject.
