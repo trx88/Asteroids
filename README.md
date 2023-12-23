@@ -54,7 +54,7 @@ ViewModel is where all the logic should live. ViewModel is tasked with getting t
 ## Private constructors
 There a lot of private constructors (usually for services and similar classes). This was done to prevent instantiating those classes by accident. The idea is to inject them, not create instances. Of course, that can be changed if the need arises.
 # Challenges
-I've never  using Zenject with unit testing in Unity, so I had to figure out what I need to include to able to use it correctly (game depends on dependency injection after all ba-dum-tsss). 
+I've never used Zenject with unit testing in Unity, so I had to figure out what I need to include to able to use it correctly (game depends on dependency injection after all ba-dum-tsss). 
 I resorted to creating a BaseUnitTest class that inherits ZenjectUnitTestFixture. That way I was able to install everything like in the MainInstaller in the actual game. Not sure if this is a good practice, but it enabled me to write tests that use Zenject.
 
 ![image](https://github.com/trx88/RovioAsteroids/assets/10126815/1d7eb7a7-eede-4161-8729-5a591f4f4fb3)
