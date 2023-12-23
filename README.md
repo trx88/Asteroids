@@ -28,7 +28,8 @@ ScoringService - updates the player's score by using Repository
 ## Repository
 ### Base Repository
 Repository was implemented as well, but with twist - separating data by storage type (InMemory & PlayerPrefs). Although an overkill for this scope, I'm used to using Repository since it can be used not just for storage, but for data change callback as well. Also, it ties perfectly into UI's MVVM.
-Base Repository is implemented in a standard way (with CRUD methods) with addtion of data change Actions other classes subscribe to. Specific repositories are InMemoryRepository (data is stored in-memory and disappear when game is closed) and PlayerPrefsRepository that is storing data in PlayerPrefs. Each repository can initialize using an initialization action for specific data model (basically set default values and/or load stored data in case of PlayerPrefsRepository).
+
+Base Repository is implemented in a standard way (with CRUD methods) with addition of data change Actions other classes subscribe to. Specific repositories are InMemoryRepository (data is stored in-memory and disappear when game is closed) and PlayerPrefsRepository that is storing data in PlayerPrefs. Each repository can initialize using an initialization action for specific data model (basically set default values and/or load stored data in case of PlayerPrefsRepository).
 
 ### Repository Factories
 RepositoryFactory (and each of it's specific variants) is used to create or get a repository for specific data model. In order to get or create a repository for a specific data model, RepositoryConfig must be created for that specific data model that consists of a type and an optional InitializationAction.
