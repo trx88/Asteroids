@@ -3,26 +3,26 @@ using RovioAsteroids.Services.Abstraction;
 
 namespace RovioAsteroids.ChainOfResponsibility
 {
-    public class AsteroidSmallHandler : Handler<Asteroid>
+    public class AsteroidSmallHandler : Handler<Enemy>
     {
-        private readonly IAsteroidSpawnerService _asteroidSpawnerService;
+        private readonly IEnemySpawnerService _enemySpawnerService;
         private readonly IScoringService _scoringService;
 
         public AsteroidSmallHandler(
-            IAsteroidSpawnerService asteroidSpawnerService,
+            IEnemySpawnerService enemySpawnerService,
             IScoringService scoringService
             )
         {
-            _asteroidSpawnerService = asteroidSpawnerService;
+            _enemySpawnerService = enemySpawnerService;
             _scoringService = scoringService;
         }
 
-        public override void HandleItem(Asteroid item)
+        public override void HandleItem(Enemy item)
         {
             if (item.GetType() == typeof(AsteroidSmall))
             {
                 _scoringService.UpdateScore(item);
-                _asteroidSpawnerService.DestroyAsteroid(item);
+                _enemySpawnerService.DestroyEnemy(item);
             }
             else
             {

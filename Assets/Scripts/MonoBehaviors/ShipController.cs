@@ -12,6 +12,7 @@ namespace RovioAsteroids.MonoBehaviors
     {
         [SerializeField] private float _rotationSpeed = 100.0f;
         [SerializeField] private float _thrustForce = 3f;
+        [SerializeField] private float _firingAngle = 15f;
         [SerializeField] private AudioClip _soundCrash = default;
         [SerializeField] private AudioClip _soundShoot = default;
         [SerializeField] private GameObject _laser = default;
@@ -84,7 +85,7 @@ namespace RovioAsteroids.MonoBehaviors
         {
             _laserFactory.CreateLaser(
                 _gunSystem.position, 
-                ModifyQuaternionWithEuler(transform.rotation, new Vector3(0f, 0f, -20f)));
+                ModifyQuaternionWithEuler(transform.rotation, new Vector3(0f, 0f, -_firingAngle)));
 
             _laserFactory.CreateLaser(
                 _gunSystem.position,
@@ -92,7 +93,7 @@ namespace RovioAsteroids.MonoBehaviors
 
             _laserFactory.CreateLaser(
                 _gunSystem.position,
-                ModifyQuaternionWithEuler(transform.rotation, new Vector3(0f, 0f, 20f)));
+                ModifyQuaternionWithEuler(transform.rotation, new Vector3(0f, 0f, _firingAngle)));
 
             AudioSource.PlayClipAtPoint(_soundShoot, Camera.main.transform.position);
         }

@@ -8,7 +8,7 @@ namespace RovioAsteroids.Tests
     [TestFixture]
     public class CreateTests : BaseUnitTest
     {
-        [Inject] private IAsteroidFactory _asteroidFactory;
+        [Inject] private IEnemyFactory _asteroidFactory;
         [Inject] private ILaserFactory _laserFactory;
 
         [SetUp]

@@ -3,8 +3,8 @@ using RovioAsteroids.Repository.Items.Abstraction;
 
 namespace RovioAsteroids.Repository.Items.DataModels
 {
-    public class AsteroidData : Item, IMemoryItem
+    public class EnemyData : Item, IMemoryItem
     {
-        [JsonProperty("asteroidUniqueId")] public string AsteroidUniqueId { get; set; }
+        [JsonProperty("enemyUniqueId")] public string EnemyUniqueId { get; set; }
     }
 }

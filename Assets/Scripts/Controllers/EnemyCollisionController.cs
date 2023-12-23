@@ -6,26 +6,26 @@ using Zenject;
 
 namespace RovioAsteroids.Controllers
 {
-    public class AsteroidController
+    public class EnemyCollisionController
     {
         private readonly IHandlerService _handlerService;
 
-        private AsteroidController(
+        private EnemyCollisionController(
             IHandlerService handlerService,
             SignalBus signalBus)
         {
             _handlerService = handlerService;
-            signalBus.Subscribe<AsteroidCollisionSignal>(x => AsteroidCollision(x.Asteroid, x.Other));
+            signalBus.Subscribe<EnemyCollisionSignal>(x => EnemyCollision(x.Enemey, x.Other));
         }
 
-        private void AsteroidCollision(Asteroid asteroid, GameObject other)
+        private void EnemyCollision(Enemy enemy, GameObject other)
         {
-            if (asteroid != null)
+            if (enemy != null)
             {
-                //Handle any type of Asteroid (spawn/destroy or just destroy, update score).
-                _handlerService.Handle(asteroid);
+                //Handle any type of Enemy (spawn/destroy or just destroy, update score).
+                _handlerService.Handle(enemy);
 
-                //Destroy laser that collided with the asteroid.
+                //Destroy laser that collided with the enemy.
                 GameObject.Destroy(other.gameObject);
             }
         }

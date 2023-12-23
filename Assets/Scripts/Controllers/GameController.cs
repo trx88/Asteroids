@@ -12,31 +12,31 @@ namespace RovioAsteroids.Controllers
     {
         [SerializeField] private int defaultSpawnNumber = 4;
 
-        private IAsteroidSpawnerService _asteroidSpawnerService;
+        private IEnemySpawnerService _enemySpawnerService;
         private IRepository<GameSessionData> _gameSessionDataRepository;
-        private IRepository<AsteroidData> _asteroidDataRepository;
+        private IRepository<EnemyData> _enemyDataRepository;
 
         private GameSessionData _gameSessionData;
 
         [Inject]
         private void Construct(
             InMemoryRepositoryFactory inMemoryRepositoryFactory,
-            IAsteroidSpawnerService asteroidSpawnerService)
+            IEnemySpawnerService enemySpawnerService)
         {
             _gameSessionDataRepository = inMemoryRepositoryFactory.RepositoryOf<GameSessionData>();
-            _asteroidDataRepository = inMemoryRepositoryFactory.RepositoryOf<AsteroidData>();
-            _asteroidSpawnerService = asteroidSpawnerService;
+            _enemyDataRepository = inMemoryRepositoryFactory.RepositoryOf<EnemyData>();
+            _enemySpawnerService = enemySpawnerService;
         }
 
         private void Awake()
         {
-            _asteroidDataRepository.ItemRemoved += OnAsteroidRemoved;
+            _enemyDataRepository.ItemRemoved += OnEnemyRemoved;
             _gameSessionDataRepository.ItemChanged += OnGameSessionDataChanged;
         }
 
         private void OnDestroy()
         {
-            _asteroidDataRepository.ItemRemoved -= OnAsteroidRemoved;
+            _enemyDataRepository.ItemRemoved -= OnEnemyRemoved;
             _gameSessionDataRepository.ItemChanged -= OnGameSessionDataChanged;
         }
 
@@ -58,7 +58,7 @@ namespace RovioAsteroids.Controllers
 
         private void BeginGame()
         {
-            _asteroidSpawnerService.SpawnAtStart(defaultSpawnNumber);
+            _enemySpawnerService.SpawnEnemiesAtStart(defaultSpawnNumber);
 
             _gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
             _gameSessionData.Lives = 3;
@@ -67,14 +67,14 @@ namespace RovioAsteroids.Controllers
             _gameSessionDataRepository.Update(_gameSessionData);
         }
 
-        private void OnAsteroidRemoved(AsteroidData asteroidData)
+        private void OnEnemyRemoved(EnemyData asteroidData)
         {
             //New wave
-            if (_asteroidDataRepository.Count() == 0 && _gameSessionData.Lives > 0)
+            if (_enemyDataRepository.Count() == 0 && _gameSessionData.Lives > 0)
             {
                 _gameSessionData.Wave++;
                 _gameSessionDataRepository.Update(_gameSessionData);
-                _asteroidSpawnerService.SpawnAtStart(defaultSpawnNumber, spawnMultiplier: _gameSessionData.Wave);
+                _enemySpawnerService.SpawnEnemiesAtStart(defaultSpawnNumber, spawnMultiplier: _gameSessionData.Wave);
             }
         }
 

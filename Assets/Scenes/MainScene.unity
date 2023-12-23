@@ -1116,6 +1116,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1521449810522018599, guid: 2bfab68ac0d26b7418285b18935a99cc, type: 3}
+      propertyPath: _firingAngle
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5786548258735207115, guid: 2bfab68ac0d26b7418285b18935a99cc, type: 3}
       propertyPath: m_Name
       value: Ship

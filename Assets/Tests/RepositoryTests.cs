@@ -11,9 +11,9 @@ namespace RovioAsteroids.Tests
     [TestFixture]
     public class RepositoryTests : BaseUnitTest
     {
-        [Inject] private IAsteroidFactory _asteroidFactory;
+        [Inject] private IEnemyFactory _asteroidFactory;
         [Inject] private InMemoryRepositoryFactory _inMemoryRepositoryFactory;
-        private IRepository<AsteroidData> _asteroidDataRepository;
+        private IRepository<EnemyData> _asteroidDataRepository;
 
         [SetUp]
         protected override void Init()
@@ -27,8 +27,8 @@ namespace RovioAsteroids.Tests
         {
             var asteroid = _asteroidFactory.CreateSmallAsteroid();
 
-            _asteroidDataRepository = _inMemoryRepositoryFactory.RepositoryOf<AsteroidData>();
-            _asteroidDataRepository.Create(new AsteroidData { AsteroidUniqueId = asteroid.UniqueId });
+            _asteroidDataRepository = _inMemoryRepositoryFactory.RepositoryOf<EnemyData>();
+            _asteroidDataRepository.Create(new EnemyData { EnemyUniqueId = asteroid.UniqueId });
 
             var asteroidData = _asteroidDataRepository.Get(x => true).Single();
 

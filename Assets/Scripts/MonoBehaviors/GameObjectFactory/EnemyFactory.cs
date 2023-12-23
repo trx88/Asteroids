@@ -6,7 +6,7 @@ using Zenject;
 
 namespace RovioAsteroids.MonoBehaviors.GameObjectFactory
 {
-    public class AsteroidFactory : IAsteroidFactory
+    public class EnemyFactory : IEnemyFactory
     {
         private readonly DiContainer _diContainer;
 
@@ -14,7 +14,7 @@ namespace RovioAsteroids.MonoBehaviors.GameObjectFactory
         private GameObject _asteroidSmallFromAddressable;
 
         [Inject]
-        public AsteroidFactory(DiContainer diContainer)
+        public EnemyFactory(DiContainer diContainer)
         {
             _diContainer = diContainer;
 

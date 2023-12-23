@@ -20,11 +20,11 @@ namespace RovioAsteroids.Services
             _highScoreDataRepository = playerPrefsRepositoryFactory.RepositoryOf<HiScoreData>();
         }
 
-        public void UpdateScore(Asteroid asteroid)
+        public void UpdateScore(Enemy enemy)
         {
             GameSessionData gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
             HiScoreData hiScoreData = _highScoreDataRepository.Get(x => true).Single();
-            gameSessionData.Score += asteroid.ScorePoints;
+            gameSessionData.Score += enemy.ScorePoints;
 
             if (gameSessionData.Score > hiScoreData.HiScore)
             {

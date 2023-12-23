@@ -1,6 +1,6 @@
 ﻿namespace RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction
 {
-    public interface IAsteroidFactory
+    public interface IEnemyFactory
     {
         AsteroidLarge CreateLargeAsteroid();
         AsteroidSmall CreateSmallAsteroid();

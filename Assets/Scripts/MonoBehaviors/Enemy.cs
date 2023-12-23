@@ -5,7 +5,7 @@ using Zenject;
 
 namespace RovioAsteroids.MonoBehaviors
 {
-    public abstract class Asteroid : MonoBehaviour, IAsteroid
+    public abstract class Enemy : MonoBehaviour, IEnemy
     {
         [SerializeField] private AudioClip _destroy = default;
         [SerializeField] private int _scorePoints = default;
@@ -33,9 +33,9 @@ namespace RovioAsteroids.MonoBehaviors
             AudioSource.PlayClipAtPoint(_destroy, Camera.main.transform.position);
         }
 
-        protected void Init()
+        protected virtual void Init()
         {
-            //Push and spin the asteroid
+            //Push and spin
             GetComponent<Rigidbody2D>()
                 .AddForce(transform.up * Random.Range(-50.0f, 150.0f));
             GetComponent<Rigidbody2D>()
@@ -47,7 +47,7 @@ namespace RovioAsteroids.MonoBehaviors
             //TODO: Check for type
             if (other.gameObject.tag.Equals("Laser"))
             {
-                _signalBus.Fire(new AsteroidCollisionSignal(this, other.gameObject));
+                _signalBus.Fire(new EnemyCollisionSignal(this, other.gameObject));
             }
         }
     }

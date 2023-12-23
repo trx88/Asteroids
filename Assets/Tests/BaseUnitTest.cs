@@ -30,7 +30,7 @@ namespace RovioAsteroids.Tests
             InstallViewModels();
 
             //Done here, so GameController does not need to inject AsteroidController.
-            Container.Resolve<AsteroidController>();
+            Container.Resolve<EnemyCollisionController>();
         }
 
         private void InstallUtils()
@@ -45,25 +45,25 @@ namespace RovioAsteroids.Tests
 
         private void InstallControllers()
         {
-            Container.BindInterfacesAndSelfTo<AsteroidController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnemyCollisionController>().AsSingle();
         }
 
         private void InstallServices()
         {
-            Container.BindInterfacesAndSelfTo<AsteroidSpawnerService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<AsteroidHandlerService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnemySpawnerService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnemyHandlerService>().AsSingle();
             Container.BindInterfacesAndSelfTo<ScoringService>().AsSingle();
         }
 
         private void InstallSignals()
         {
             SignalBusInstaller.Install(Container);
-            Container.DeclareSignal<AsteroidCollisionSignal>();
+            Container.DeclareSignal<EnemyCollisionSignal>();
         }
 
         private void InstallFactories()
         {
-            Container.Bind<IAsteroidFactory>().To<AsteroidFactory>().AsSingle();
+            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
             Container.Bind<ILaserFactory>().To<LaserFactory>().AsSingle();
         }
 
@@ -85,7 +85,7 @@ namespace RovioAsteroids.Tests
                 new InitializeGameSessionDataAction(inMemoryRepoFactory)
                 ));
             inMemoryRepoFactory.AddRepositoryConfig(
-                new RepositoryConfig(typeof(AsteroidData)
+                new RepositoryConfig(typeof(EnemyData)
                 ));
         }
 
