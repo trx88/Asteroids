@@ -54,7 +54,6 @@ namespace RovioAsteroids.MonoBehaviors
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            //TODO: Check for type
             if (other.gameObject.tag != "Laser")
             {
                 AudioSource.PlayClipAtPoint
@@ -62,8 +61,7 @@ namespace RovioAsteroids.MonoBehaviors
 
                 //Reset ship
                 transform.position = new Vector3(0, 0, 0);
-                GetComponent<Rigidbody2D>().
-                    velocity = new Vector3(0, 0, 0);
+                GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
 
                 //Reduce lives
                 GameSessionData gameSessionData = _gameSessionDataRepository.Get(x => true).Single();
@@ -74,8 +72,8 @@ namespace RovioAsteroids.MonoBehaviors
 
         private void ShootOne()
         {
-            Instantiate(_laser,
-                new Vector3(transform.position.x, transform.position.y, 0),
+            _laserFactory.CreateLaser(
+                _gunSystem.position,
                 transform.rotation);
 
             AudioSource.PlayClipAtPoint(_soundShoot, Camera.main.transform.position);

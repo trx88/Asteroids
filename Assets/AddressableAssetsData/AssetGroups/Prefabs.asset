@@ -25,8 +25,16 @@ MonoBehaviour:
     m_Address: AsteroidSmall
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 2fe6fa63b3bf8f2479e39e85209295a5
+    m_Address: LaserEnemy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: afba1620e1dc900438ae6e7da66e293f
     m_Address: Laser
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c158bb4ca01867c4aa28c095e5a02156
+    m_Address: ShipEnemy
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

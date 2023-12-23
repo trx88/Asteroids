@@ -59,10 +59,25 @@ namespace RovioAsteroids.Services
         {
             DestroyAllEnemies();
 
+            SpawnEnemyShip();
             for (int i = 0; i < defaultNumberOfAsteroidsToSpawn * spawnMultiplier; i++)
             {
                 SpawnLargeAsteroid();
             }
+        }
+
+        public void SpawnEnemyShip()
+        {
+            var enemyShip = _enemyFactory.CreateEnemyShip();
+
+            _enemies.Add(enemyShip);
+
+            _enemyDataRepository.Create(new
+                EnemyData
+            {
+                Id = enemyShip.UniqueId.ToString(),
+                EnemyUniqueId = enemyShip.UniqueId
+            });
         }
 
         public void SpawnLargeAsteroid()

@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 4464418945582196196}
   - component: {fileID: 4464418945582196195}
   - component: {fileID: 2818087293654672120}
-  - component: {fileID: 265179525253163822}
+  - component: {fileID: -3991849609252108103}
   m_Layer: 0
-  m_Name: Laser
-  m_TagString: Laser
+  m_Name: LaserEnemy
+  m_TagString: LaserEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 84e663ca0b8f926478e16e827049d764, type: 3}
+  m_Sprite: {fileID: 21300000, guid: adb872156a033c641978f5832b21301e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7cd0641494f074dbfef7f8c2586b39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &265179525253163822
+--- !u!114 &-3991849609252108103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,6 +156,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4464418945582196199}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f05b0fde22a5144780a5c3d9be0a6bc, type: 3}
+  m_Script: {fileID: 11500000, guid: be62f467371bab34e89a0d0787bd8272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

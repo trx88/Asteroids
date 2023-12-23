@@ -16,5 +16,7 @@ namespace RovioAsteroids.Services.Abstraction
         void SpawnLargeAsteroid();
 
         void SpawnSmallAsteroidFromLargeAsteroid(Vector3 largeAsteroidPosition);
+
+        void SpawnEnemyShip();
     }
 }

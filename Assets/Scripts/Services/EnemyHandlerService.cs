@@ -17,6 +17,7 @@ namespace RovioAsteroids.Services
         {
             RegisterHandler(new AsteroidSmallHandler(enemySpawnerService, scoringService));
             RegisterHandler(new AsteroidLargeHandler(enemySpawnerService, scoringService));
+            RegisterHandler(new ShipEnemyHandler(enemySpawnerService, scoringService));
         }
 
         public void Handle(Enemy item)

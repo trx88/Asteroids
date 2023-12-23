@@ -4,5 +4,6 @@
     {
         AsteroidLarge CreateLargeAsteroid();
         AsteroidSmall CreateSmallAsteroid();
+        ShipEnemyController CreateEnemyShip();
     }
 }

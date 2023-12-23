@@ -3,7 +3,7 @@ using RovioAsteroids.MonoBehaviors.Abstraction;
 
 namespace RovioAsteroids.ChainOfResponsibility
 {
-    public abstract class Handler<T> : IHandler<T> where T : IEnemy
+    public abstract class Handler<T> : IHandler<T>
     {
         protected IHandler<T>? Successor;
 

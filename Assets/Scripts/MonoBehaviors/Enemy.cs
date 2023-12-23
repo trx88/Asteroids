@@ -42,10 +42,9 @@ namespace RovioAsteroids.MonoBehaviors
                 .angularVelocity = Random.Range(-0.0f, 90.0f);
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            //TODO: Check for type
-            if (other.gameObject.tag.Equals("Laser"))
+            if (other.gameObject.tag.Contains("Laser"))
             {
                 _signalBus.Fire(new EnemyCollisionSignal(this, other.gameObject));
             }

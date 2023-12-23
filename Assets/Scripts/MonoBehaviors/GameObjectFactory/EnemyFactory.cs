@@ -12,6 +12,7 @@ namespace RovioAsteroids.MonoBehaviors.GameObjectFactory
 
         private GameObject _asteroidLargeFromAddressable;
         private GameObject _asteroidSmallFromAddressable;
+        private GameObject _shipEnemyFromAddressable;
 
         [Inject]
         public EnemyFactory(DiContainer diContainer)
@@ -20,6 +21,7 @@ namespace RovioAsteroids.MonoBehaviors.GameObjectFactory
 
             _asteroidLargeFromAddressable = AddressablesManager.LoadAssetSync<GameObject>(StaticStrings.Addressable_AsteroidLarge);
             _asteroidSmallFromAddressable = AddressablesManager.LoadAssetSync<GameObject>(StaticStrings.Addressable_AsteroidSmall);
+            _shipEnemyFromAddressable = AddressablesManager.LoadAssetSync<GameObject>(StaticStrings.Addressable_ShipEnemy);
         }
 
         public AsteroidLarge CreateLargeAsteroid()
@@ -30,6 +32,11 @@ namespace RovioAsteroids.MonoBehaviors.GameObjectFactory
         public AsteroidSmall CreateSmallAsteroid()
         {
             return _diContainer.InstantiatePrefabForComponent<AsteroidSmall>(_asteroidSmallFromAddressable);
+        }
+
+        public ShipEnemyController CreateEnemyShip()
+        {
+            return _diContainer.InstantiatePrefabForComponent<ShipEnemyController>(_shipEnemyFromAddressable);
         }
     }
 }
