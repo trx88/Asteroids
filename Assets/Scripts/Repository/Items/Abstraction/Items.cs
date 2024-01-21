@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace RovioAsteroids.Repository.Items.Abstraction
 {
-    public interface IItem
+    public interface IItem : ICloneable
     {
         string Id { get; set; }
     }
@@ -18,6 +19,8 @@ namespace RovioAsteroids.Repository.Items.Abstraction
 
         [JsonProperty("id")] public string Id { get; set; } = System.Guid.NewGuid().ToString();
         [JsonProperty("type")] public string Type { get; set; }
+
+        public abstract object Clone();
     }
 
     public interface IMemoryItem : IItem

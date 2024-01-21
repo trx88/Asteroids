@@ -45,7 +45,7 @@ namespace RovioAsteroids.Repository.Repositories
         public virtual TItem Create(TItem value)
         {
             _items ??= new ConcurrentDictionary<string, TItem>();
-
+            
             TItem result = default;
 
             if (value != null)
@@ -110,7 +110,7 @@ namespace RovioAsteroids.Repository.Repositories
                 LoadOrInitializeRepository();
             }
 
-            return _items.Values.Where(predicate).ToList();
+            return _items.Values.Where(predicate).Select(x => x.Clone() as TItem).ToList();
         }
 
         public virtual void Update(TItem value)
@@ -122,8 +122,8 @@ namespace RovioAsteroids.Repository.Repositories
 
             if (_items.TryGetValue(value.Id, out TItem item))
             {
-                _items[item.Id] = item;
-                ItemChanged?.Invoke(item);
+                _items[item.Id] = value;
+                ItemChanged?.Invoke(value);
             }
             else
             {
