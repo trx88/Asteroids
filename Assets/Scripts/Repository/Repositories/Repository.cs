@@ -95,7 +95,7 @@ namespace RovioAsteroids.Repository.Repositories
 
             if (_items.TryGetValue(id, out TItem item))
             {
-                return item as TItem;
+                return item.Clone() as TItem;
             }
             else
             {
