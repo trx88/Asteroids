@@ -1,13 +1,16 @@
 using RovioAsteroids.Actions;
 using RovioAsteroids.Controllers;
-using RovioAsteroids.MonoBehaviors.GameObjectFactory;
-using RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction;
+using RovioAsteroids.MonoBehaviors;
+using RovioAsteroids.MonoBehaviors.Abstraction;
+using RovioAsteroids.MonoBehaviors.GameObjectFactories;
+using RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction;
 using RovioAsteroids.MVVM.ViewModels;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.RepositoryFactories;
 using RovioAsteroids.Services;
 using RovioAsteroids.Signals;
 using RovioAsteroids.Utils;
+using UnityEngine;
 using Zenject;
 
 namespace RovioAsteroids.Installers
@@ -37,7 +40,7 @@ namespace RovioAsteroids.Installers
             Container.Bind<MapHelper>().AsSingle();
         }
 
-        //Used for UIs MVVM.
+        //Used for UI's MVVM.
         private void InstallViewModels()
         {
             Container.BindInterfacesAndSelfTo<HudScreenViewModel>().AsSingle();
@@ -67,8 +70,18 @@ namespace RovioAsteroids.Installers
             //but the best I could do is bind multiple factories to a single interface
             //and that still isn't what I wanted. 
             //So each factory has a separate Create method for each GameObject variant.
+
+            //Container.Bind<IAddressableLoader>().To<SmallAsteroidAddressableLoader>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<AddressableLoader>().AsSingle();
+
+            //Container.Bind<INewEnemyFactory>().To<NewEnemyFactory>().AsCached();
+
             Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
             Container.Bind<ILaserFactory>().To<LaserFactory>().AsSingle();
+
+            Container.BindFactory<string, Vector3, Quaternion, IAddresableGameObject, GameObjectFactory>().FromFactory<CustomGameObjectFactory>();
+            //Container.BindFactory<string, Vector3, Quaternion, IAddresableGameObject, NewLaserFactory>().FromFactory<RovioCustomLaserFactory>();
         }
 
         private void InstallRepositoryFactories()

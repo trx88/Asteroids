@@ -1,4 +1,5 @@
-using RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction;
+using RovioAsteroids.MonoBehaviors.GameObjectFactories;
+using RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.Abstraction;
 using RovioAsteroids.Repository.Repositories.RepositoryFactories;
@@ -24,14 +25,17 @@ namespace RovioAsteroids.MonoBehaviors
 
         private IRepository<GameSessionData> _gameSessionDataRepository;
         private ILaserFactory _laserFactory;
+        private GameObjectFactory _gameObjectFactory;
 
         [Inject]
         private void Construct(
             InMemoryRepositoryFactory inMemoryRepositoryFactory,
-            ILaserFactory laserFactory)
+            ILaserFactory laserFactory,
+            GameObjectFactory gameObjectFactory)
         {
             _gameSessionDataRepository = inMemoryRepositoryFactory.RepositoryOf<GameSessionData>();
             _laserFactory = laserFactory;
+            _gameObjectFactory = gameObjectFactory;
         }
 
         void FixedUpdate()
@@ -61,10 +65,10 @@ namespace RovioAsteroids.MonoBehaviors
             if (other.gameObject.tag != StaticStrings.Tag_Laser)
             {
                 var particles = GetComponentInChildren<ParticleSystem>();
-                if(particles != null)
+                if (particles != null)
                 {
                     particles.Play();
-                }    
+                }
 
                 AudioSource.PlayClipAtPoint(_soundCrash, Camera.main.transform.position);
 
@@ -90,15 +94,29 @@ namespace RovioAsteroids.MonoBehaviors
 
         private void ShootThree()
         {
-            _laserFactory.CreateLaser(
-                _gunSystem.position, 
+            //_laserFactory.CreateLaser(
+            //    _gunSystem.position, 
+            //    ModifyQuaternionWithEuler(transform.rotation, new Vector3(0f, 0f, -_firingAngle)));
+
+            //_laserFactory.CreateLaser(
+            //    _gunSystem.position,
+            //    transform.rotation);
+
+            //_laserFactory.CreateLaser(
+            //    _gunSystem.position,
+            //    ModifyQuaternionWithEuler(transform.rotation, new Vector3(0f, 0f, _firingAngle)));
+            _gameObjectFactory.Create(
+                StaticStrings.Addressable_Laser,
+                _gunSystem.position,
                 ModifyQuaternionWithEuler(transform.rotation, new Vector3(0f, 0f, -_firingAngle)));
 
-            _laserFactory.CreateLaser(
+            _gameObjectFactory.Create(
+                StaticStrings.Addressable_Laser,
                 _gunSystem.position,
                 transform.rotation);
 
-            _laserFactory.CreateLaser(
+            _gameObjectFactory.Create(
+                StaticStrings.Addressable_Laser,
                 _gunSystem.position,
                 ModifyQuaternionWithEuler(transform.rotation, new Vector3(0f, 0f, _firingAngle)));
 

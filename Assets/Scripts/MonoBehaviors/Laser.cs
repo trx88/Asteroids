@@ -1,12 +1,15 @@
+using RovioAsteroids.MonoBehaviors.Abstraction;
 using UnityEngine;
 
 namespace RovioAsteroids.MonoBehaviors
 {
+    public interface ILaser : IAddresableGameObject
+    {
+        void AddForce(float force);
+    }
+
     public class Laser : MonoBehaviour
     {
-        protected virtual void Init()
-        {
-            GetComponent<Rigidbody2D>().AddForce(transform.up * 400);
-        }
+        
     }
 }

@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction;
+using RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction;
 using UnityEngine;
 using Zenject;
 

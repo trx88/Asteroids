@@ -1,16 +1,18 @@
+using UnityEngine;
+
 namespace RovioAsteroids.MonoBehaviors
 {
-    public class LaserEnemy : Laser
+    public class LaserEnemy : MonoBehaviour, ILaser
     {
         void Start()
         {
-            Init();
+            AddForce(300f);
             Destroy(gameObject, 1f);
         }
 
-        protected override void Init()
+        public void AddForce(float force)
         {
-            base.Init();
+            GetComponent<Rigidbody2D>().AddForce(transform.up * force);
         }
     }
 }

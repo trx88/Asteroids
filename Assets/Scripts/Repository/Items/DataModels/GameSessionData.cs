@@ -4,7 +4,7 @@ using System;
 
 namespace RovioAsteroids.Repository.Items.DataModels
 {
-    public class GameSessionData : Item, IMemoryItem, ICloneable
+    public class GameSessionData : Item, IMemoryItem
     {
         [JsonProperty("score")] public int Score { get; set; }
         [JsonProperty("wave")] public int Wave { get; set; }

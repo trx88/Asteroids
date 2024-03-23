@@ -1,10 +1,10 @@
-﻿using RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction;
+﻿using RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction;
 using RovioAsteroids.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
-namespace RovioAsteroids.MonoBehaviors.GameObjectFactory
+namespace RovioAsteroids.MonoBehaviors.GameObjectFactories
 {
     /// <summary>
     /// Used to instantiate laser game objects using Zenject.

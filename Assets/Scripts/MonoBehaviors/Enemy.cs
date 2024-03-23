@@ -18,6 +18,8 @@ namespace RovioAsteroids.MonoBehaviors
         protected string uniqueId;
         public string UniqueId { get => uniqueId; }
 
+        public string AddressableKey => "EnemyKey";
+
         private SignalBus _signalBus;
 
         [Inject]

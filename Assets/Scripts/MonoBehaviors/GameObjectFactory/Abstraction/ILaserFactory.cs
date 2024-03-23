@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction
+namespace RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction
 {
     public interface ILaserFactory
     {

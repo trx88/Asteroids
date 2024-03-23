@@ -1,7 +1,12 @@
 ﻿namespace RovioAsteroids.MonoBehaviors.Abstraction
 {
-    public interface IEnemy
+    public interface IEnemy : IAddresableGameObject
     {
-
+        public string AddressableKey
+        {
+            get;
+        }
     }
+
+    public interface IAddresableGameObject { }
 }

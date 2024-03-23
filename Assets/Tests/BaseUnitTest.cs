@@ -1,7 +1,7 @@
 using RovioAsteroids.Actions;
 using RovioAsteroids.Controllers;
-using RovioAsteroids.MonoBehaviors.GameObjectFactory;
-using RovioAsteroids.MonoBehaviors.GameObjectFactory.Abstraction;
+using RovioAsteroids.MonoBehaviors.GameObjectFactories;
+using RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction;
 using RovioAsteroids.MVVM.ViewModels;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.RepositoryFactories;
