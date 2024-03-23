@@ -20,6 +20,13 @@ namespace RovioAsteroids.MonoBehaviors.GameObjectFactories
             _addressableLoader = addressableLoader;
         }
 
+        /// <summary>
+        /// Create GameObjects from addressable key, with custom position and rotation.
+        /// </summary>
+        /// <param name="param1">Addressable key. Look in StaticStrings.</param>
+        /// <param name="param2">Position to instantiate to.</param>
+        /// <param name="param3">Rotation to instantiate with</param>
+        /// <returns></returns>
         public IAddresableGameObject Create(string param1, Vector3 param2, Quaternion param3)
         {
             try
@@ -36,6 +43,10 @@ namespace RovioAsteroids.MonoBehaviors.GameObjectFactories
         }
     }
 
+
+    /// <summary>
+    /// Will be injected where needed to create GameObjects from addressable key, with custom position and rotation.
+    /// </summary>
     public class GameObjectFactory : PlaceholderFactory<string, Vector3, Quaternion, IAddresableGameObject>
     {
 

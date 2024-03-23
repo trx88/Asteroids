@@ -51,7 +51,6 @@ namespace RovioAsteroids.MonoBehaviors
             //Moved to regular Update since shooting requires more frequent calls.
             if (Input.GetMouseButtonDown(0))
             {
-                //ShootOne();
                 ShootThree();
             }
         }
