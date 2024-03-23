@@ -2,7 +2,6 @@ using RovioAsteroids.Actions;
 using RovioAsteroids.Controllers;
 using RovioAsteroids.MonoBehaviors.Abstraction;
 using RovioAsteroids.MonoBehaviors.GameObjectFactories;
-using RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction;
 using RovioAsteroids.MVVM.ViewModels;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.RepositoryFactories;
@@ -67,9 +66,6 @@ namespace RovioAsteroids.Tests
         {
             Container.BindInterfacesAndSelfTo<AddressableLoader>().AsSingle();
             Container.BindFactory<string, Vector3, Quaternion, IAddresableGameObject, GameObjectFactory>().FromFactory<CustomGameObjectFactory>();
-
-            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
-            Container.Bind<ILaserFactory>().To<LaserFactory>().AsSingle();
         }
 
         private void InstallRepositoryFactories()

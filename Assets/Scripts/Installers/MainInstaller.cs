@@ -66,22 +66,8 @@ namespace RovioAsteroids.Installers
 
         private void InstallFactories()
         {
-            //Original idea was to have a generic Create<T> method,
-            //but the best I could do is bind multiple factories to a single interface
-            //and that still isn't what I wanted. 
-            //So each factory has a separate Create method for each GameObject variant.
-
-            //Container.Bind<IAddressableLoader>().To<SmallAsteroidAddressableLoader>().AsSingle();
-
             Container.BindInterfacesAndSelfTo<AddressableLoader>().AsSingle();
-
-            //Container.Bind<INewEnemyFactory>().To<NewEnemyFactory>().AsCached();
-
-            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
-            Container.Bind<ILaserFactory>().To<LaserFactory>().AsSingle();
-
             Container.BindFactory<string, Vector3, Quaternion, IAddresableGameObject, GameObjectFactory>().FromFactory<CustomGameObjectFactory>();
-            //Container.BindFactory<string, Vector3, Quaternion, IAddresableGameObject, NewLaserFactory>().FromFactory<RovioCustomLaserFactory>();
         }
 
         private void InstallRepositoryFactories()

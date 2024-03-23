@@ -1,5 +1,4 @@
 using RovioAsteroids.MonoBehaviors.GameObjectFactories;
-using RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.Abstraction;
 using RovioAsteroids.Repository.Repositories.RepositoryFactories;
@@ -24,17 +23,14 @@ namespace RovioAsteroids.MonoBehaviors
         [SerializeField] private Transform _gunSystem = default;
 
         private IRepository<GameSessionData> _gameSessionDataRepository;
-        private ILaserFactory _laserFactory;
         private GameObjectFactory _gameObjectFactory;
 
         [Inject]
         private void Construct(
             InMemoryRepositoryFactory inMemoryRepositoryFactory,
-            ILaserFactory laserFactory,
             GameObjectFactory gameObjectFactory)
         {
             _gameSessionDataRepository = inMemoryRepositoryFactory.RepositoryOf<GameSessionData>();
-            _laserFactory = laserFactory;
             _gameObjectFactory = gameObjectFactory;
         }
 
@@ -83,28 +79,8 @@ namespace RovioAsteroids.MonoBehaviors
             }
         }
 
-        private void ShootOne()
-        {
-            _laserFactory.CreateLaser(
-                _gunSystem.position,
-                transform.rotation);
-
-            AudioSource.PlayClipAtPoint(_soundShoot, Camera.main.transform.position);
-        }
-
         private void ShootThree()
         {
-            //_laserFactory.CreateLaser(
-            //    _gunSystem.position, 
-            //    ModifyQuaternionWithEuler(transform.rotation, new Vector3(0f, 0f, -_firingAngle)));
-
-            //_laserFactory.CreateLaser(
-            //    _gunSystem.position,
-            //    transform.rotation);
-
-            //_laserFactory.CreateLaser(
-            //    _gunSystem.position,
-            //    ModifyQuaternionWithEuler(transform.rotation, new Vector3(0f, 0f, _firingAngle)));
             _gameObjectFactory.Create(
                 StaticStrings.Addressable_Laser,
                 _gunSystem.position,

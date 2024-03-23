@@ -1,5 +1,6 @@
 using NUnit.Framework;
-using RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction;
+using RovioAsteroids.MonoBehaviors.GameObjectFactories;
+using RovioAsteroids.Utils;
 using UnityEngine;
 using Zenject;
 
@@ -8,8 +9,7 @@ namespace RovioAsteroids.Tests
     [TestFixture]
     public class CreateTests : BaseUnitTest
     {
-        [Inject] private IEnemyFactory _asteroidFactory;
-        [Inject] private ILaserFactory _laserFactory;
+        [Inject] private GameObjectFactory _gameObjectFactory;
 
         [SetUp]
         protected override void Init()
@@ -21,21 +21,21 @@ namespace RovioAsteroids.Tests
         [Test]
         public void TestCreateSmallAsteroid()
         {
-            var asteroid = _asteroidFactory.CreateSmallAsteroid();
+            var asteroid = _gameObjectFactory.Create(StaticStrings.Addressable_AsteroidSmall, Vector3.zero, Quaternion.identity);
             Assert.That(asteroid, !Is.Null);
         }
 
         [Test]
         public void TestCreateLargeAsteroid()
         {
-            var asteroid = _asteroidFactory.CreateLargeAsteroid();
+            var asteroid = _gameObjectFactory.Create(StaticStrings.Addressable_AsteroidLarge, Vector3.zero, Quaternion.identity);
             Assert.That(asteroid, !Is.Null);
         }
 
         [Test]
         public void TestCreateLaser()
         {
-            var laser = _laserFactory.CreateLaser(Vector3.zero, Quaternion.identity);
+            var laser = _gameObjectFactory.Create(StaticStrings.Addressable_Laser, Vector3.zero, Quaternion.identity);
             Assert.That(laser, !Is.Null);
         }
     }
