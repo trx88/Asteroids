@@ -1,5 +1,4 @@
 using RovioAsteroids.MonoBehaviors.GameObjectFactories;
-using RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction;
 using RovioAsteroids.Utils;
 using System.Collections;
 using UnityEngine;
@@ -24,15 +23,12 @@ namespace RovioAsteroids.MonoBehaviors
         private Transform _playerShip = default;
         private float timer = 0f;
 
-        private ILaserFactory _laserFactory;
         private GameObjectFactory _gameObjectFactory;
 
         [Inject]
         private void Construct(
-            ILaserFactory laserFactory,
             GameObjectFactory gameObjectFactory)
         {
-            _laserFactory = laserFactory;
             _gameObjectFactory = gameObjectFactory;
         }
 
@@ -69,9 +65,6 @@ namespace RovioAsteroids.MonoBehaviors
                 if (timer % 60 >= _firingIntervalInSeconds)
                 {
                     timer = 0f;
-                    //_laserFactory.CreateEnemyLaser(
-                    //    _gunSystem.position,
-                    //    transform.rotation);
                     _gameObjectFactory.Create(
                         StaticStrings.Addressable_LaserEnemy,
                         _gunSystem.position,

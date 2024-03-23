@@ -7,6 +7,4 @@
             get;
         }
     }
-
-    public interface IAddresableGameObject { }
 }

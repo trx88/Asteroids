@@ -1,6 +1,5 @@
 using RovioAsteroids.MonoBehaviors;
 using RovioAsteroids.MonoBehaviors.GameObjectFactories;
-using RovioAsteroids.MonoBehaviors.GameObjectFactories.Abstraction;
 using RovioAsteroids.Repository.Items.DataModels;
 using RovioAsteroids.Repository.Repositories.Abstraction;
 using RovioAsteroids.Repository.Repositories.RepositoryFactories;
@@ -19,18 +18,15 @@ namespace RovioAsteroids.Services
         private readonly List<Enemy> _enemies = new List<Enemy>();
 
         private readonly MapHelper _mapHelper;
-        private readonly IEnemyFactory _enemyFactory;
         private readonly GameObjectFactory _gameObjectFactory;
         private IRepository<EnemyData> _enemyDataRepository;
 
         private EnemySpawnerService(
             MapHelper mapHelper,
             InMemoryRepositoryFactory inMemoryRepositoryFactory,
-            IEnemyFactory enemyFactory,
             GameObjectFactory gameObjectFactory)
         {
             _mapHelper = mapHelper;
-            _enemyFactory = enemyFactory;
             _gameObjectFactory = gameObjectFactory;
             _enemyDataRepository = inMemoryRepositoryFactory.RepositoryOf<EnemyData>();
         }
@@ -74,7 +70,12 @@ namespace RovioAsteroids.Services
 
         public void SpawnEnemyShip()
         {
-            var enemyShip = _enemyFactory.CreateEnemyShip();
+            const float enemyShipBorderOffset = 0.5f;
+
+            var enemyShip = _gameObjectFactory.Create(
+                StaticStrings.Addressable_ShipEnemy,
+                new Vector3(0f, _mapHelper.Bottom + enemyShipBorderOffset, 0f),
+                Quaternion.identity) as ShipEnemyController;
 
             _enemies.Add(enemyShip);
 
@@ -88,7 +89,6 @@ namespace RovioAsteroids.Services
 
         public void SpawnLargeAsteroid()
         {
-            //var largeAsteroid = _enemyFactory.CreateLargeAsteroid();
             var largeAsteroid = _gameObjectFactory.Create(
                 StaticStrings.Addressable_AsteroidLarge,
                 new Vector3(
@@ -96,12 +96,6 @@ namespace RovioAsteroids.Services
                         Random.Range(_mapHelper.Bottom, _mapHelper.Top),
                         0),
                 Quaternion.Euler(0, 0, Random.Range(-0.0f, 359.0f))) as AsteroidLarge;
-
-            //largeAsteroid.transform.position = new Vector3(
-            //            Random.Range(_mapHelper.Left, _mapHelper.Right),
-            //            Random.Range(_mapHelper.Bottom, _mapHelper.Top),
-            //            0);
-            //largeAsteroid.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-0.0f, 359.0f));
 
             _enemies.Add(largeAsteroid);
 
@@ -118,8 +112,6 @@ namespace RovioAsteroids.Services
             float randomX = Random.Range(-0.5f, 0.5f);
             float randomY = Random.Range(-0.5f, 0.5f);
 
-            //var smallAsteroid = _enemyFactory.CreateSmallAsteroid();
-            //var smallAsteroid = _enemyFactory.CreateEnemy<AsteroidSmall>();
             var smallAsteroid = _gameObjectFactory.Create(
                 StaticStrings.Addressable_AsteroidSmall,
                 new Vector3(
@@ -127,12 +119,6 @@ namespace RovioAsteroids.Services
                         largeAsteroidPosition.y + randomY,
                         0),
                 Quaternion.Euler(0, 0, Random.Range(-0.0f, 359.0f))) as AsteroidSmall;
-
-            //smallAsteroid.transform.position = new Vector3(
-            //            largeAsteroidPosition.x + randomX,
-            //            largeAsteroidPosition.y + randomY,
-            //            0);
-            //smallAsteroid.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-0.0f, 359.0f));
 
             _enemies.Add(smallAsteroid);
 
