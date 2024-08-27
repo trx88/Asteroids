@@ -1,4 +1,4 @@
-# RovioAsteroids
+# Asteroids Clone
 ## Screenshot
 ![RovioAsteroidsScreenshot](https://github.com/trx88/RovioAsteroids/assets/10126815/f2175625-ac60-417f-8206-753e7604d206)
 ## Windows build of the game
